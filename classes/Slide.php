@@ -1,5 +1,5 @@
 <?php
-require_once(_PS_MODULE_DIR_.'/flslider/classes/Helper.php');
+require_once(_PS_MODULE_DIR_.'/flslider/classes/FLSHelper.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Device.php');
 
 class Slide extends ObjectModel
@@ -77,6 +77,29 @@ class Slide extends ObjectModel
                 $objSlide = new Slide((int) $slide['id_slide']);
                 $objSlide->slideObjects = SlideObjects::getAllBySlide((int) $objSlide->id);
                 $slides[] = $objSlide;
+            }
+        }
+
+        return $slides;
+    }
+
+    public static function getFrontSlides($idDevice)
+    {
+        $slides = [];
+        $sql = 'SELECT id_slide, id_device, `name`, settings, active, order_slide
+        FROM `'._DB_PREFIX_.'flslider_slides`
+        WHERE id_device = '.$idDevice.' AND active = 1';
+        $results = Db::getInstance()->ExecuteS($sql);
+
+        if (!empty($results)) {
+            $slides = $results;
+
+            foreach ($results as $key =>$slide) {
+                $slides[$key]['objects'] = [];
+                $slideObjects = SlideObjects::getFrontObjectsBySlideId((int) $slide['id_slide']);
+                if (!empty($slideObjects)) {
+                    $slides[$key]['objects'] = $slideObjects;
+                }
             }
         }
 

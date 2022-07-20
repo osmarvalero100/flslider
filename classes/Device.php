@@ -58,7 +58,7 @@ class Device extends ObjectModel
 
     public static function createDefaultDeviceSlide($idSlider)
     {
-        foreach (Helper::listDevices() as $key=>$value) {
+        foreach (FLSHelper::listDevices() as $key=>$value) {
             $device = new Device();
             $device->id_slider = $idSlider;
             $device->device = $key;
@@ -71,6 +71,14 @@ class Device extends ObjectModel
             $slide->setSettings([]);
             $slide->save();
         }
+    }
+
+    public static function getFrontSliderDeviceId($idSlider) {
+        $device = Context::getContext()->getDevice();
+        $sql = 'SELECT id_device
+                FROM `'._DB_PREFIX_.'flslider_devices`
+                WHERE id_slider ='.$idSlider.' AND device ='. $device;
+		return Db::getInstance()->getValue($sql);
     }
 
 }

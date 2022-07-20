@@ -1,6 +1,6 @@
 <?php
 
-class Helper {
+class FLSHelper {
 
     public static function getUriImages()
     {
@@ -27,7 +27,7 @@ class Helper {
         $data = [];
         $extImg = str_replace('image/', '', $image['type']);
         $name = $name = uniqid();
-        $folderSlider = Helper::getPathImages().$idSlider;
+        $folderSlider = FLSHelper::getPathImages().$idSlider;
 
         try {
             if (!is_dir($folderSlider))
@@ -38,10 +38,10 @@ class Helper {
 
         $pathImage = $folderSlider.'/'.$name.'.'.$extImg;
         if(move_uploaded_file($_FILES['img_object']['tmp_name'], $pathImage)) {
-            $data['src'] = Helper::getUriImages().$idSlider.'/'.$name.'.'.$extImg;
+            $data['src'] = FLSHelper::getUriImages().$idSlider.'/'.$name.'.'.$extImg;
             if ($convertToWebp) {
-                if (Helper::imageCreateWebp($pathImage)) {
-                    $data['srcset'] = Helper::getUriImages().$idSlider.'/'.$name.'.webp';
+                if (FLSHelper::imageCreateWebp($pathImage)) {
+                    $data['srcset'] = FLSHelper::getUriImages().$idSlider.'/'.$name.'.webp';
                 }
             }
         } else {

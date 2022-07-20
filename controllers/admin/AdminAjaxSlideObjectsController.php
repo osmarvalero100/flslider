@@ -25,7 +25,7 @@
  *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
-require_once(_PS_MODULE_DIR_.'/flslider/classes/Helper.php');
+require_once(_PS_MODULE_DIR_.'/flslider/classes/FLSHelper.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slider.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slide.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/SlideObjects.php');
@@ -37,7 +37,7 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
 {
     public function ajaxProcessSave()
     {
-        $data = Helper::getRequestData();
+        $data = FLSHelper::getRequestData();
 
         if (isset($data->id) && $data->id != null) {
             $slideObject = new SlideObjects((int) $data->id);
@@ -65,11 +65,11 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
         
         if (!empty($_FILES['img_object'])) {
             $extImg = str_replace('image/', '', $_FILES['img_object']['type']);
-            if(!in_array($extImg, Helper::allowImageExt())) {
+            if(!in_array($extImg, FLSHelper::allowImageExt())) {
                 $this->ajaxDie(json_encode(['errors' => 'Image extension invalid']));
             }
 
-            $uploadImage = Helper::uploadImage($_FILES['img_object'], $idSlider);
+            $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider);
             if (!empty($uploadImage['errors'])) {
                 http_response_code(400);
                 $this->ajaxDie(['errors' => $uploadImage['errors']]);

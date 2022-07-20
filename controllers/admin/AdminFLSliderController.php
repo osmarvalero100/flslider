@@ -2,7 +2,7 @@
 
 defined('_PS_VERSION_') or exit;
 
-require_once(_PS_MODULE_DIR_.'/flslider/classes/Helper.php');
+require_once(_PS_MODULE_DIR_.'/flslider/classes/FLSHelper.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slider.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slide.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Device.php');

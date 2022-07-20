@@ -63,4 +63,18 @@ class SlideObjects extends ObjectModel
 		return $result;
     }
 
+    public static function getFrontObjectsBySlideId($idSlide)
+    {
+        $sql = 'SELECT id_slide_object, id_slide, `type`, attributes
+        FROM `'._DB_PREFIX_.'flslider_slides_objects`
+        WHERE id_slide = '.$idSlide;
+
+        $result = Db::getInstance()->ExecuteS($sql);
+        foreach($result as $key => $object) {
+            $result[$key]['attributes'] = json_decode($object['attributes'], true);
+        }
+		
+		return $result;
+    }
+
 }

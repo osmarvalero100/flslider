@@ -27,6 +27,8 @@
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+require_once(dirname(__FILE__) . '/integrations/pspagebuilder/FLSliderWidgetPsPageBuilder.php');
+require_once(_PS_MODULE_DIR_.'/flslider/classes/Slider.php');
 
 class FlSlider extends Module
 {
@@ -82,16 +84,21 @@ class FlSlider extends Module
     public function install()
     {
         require_once __DIR__ . '/sql/install.php';
+        $widgetPageBuilder = new FLSliderWidgetPsPageBuilder();
         Configuration::updateValue('OPTIMIZEDSLIDER_LIVE_MODE', false);
 
         return parent::install() &&
             $this->registerHook('header') &&
-            $this->registerHook('backOfficeHeader');
+            $this->registerHook('backOfficeHeader') &&
+            $this->registerHook('displayFLSlider') &&
+            $widgetPageBuilder->add('pspagebuilder');
     }
 
     public function uninstall()
     {
         Configuration::deleteByName('OPTIMIZEDSLIDER_LIVE_MODE');
+        $widgetPageBuilder = new FLSliderWidgetPsPageBuilder();
+        $widgetPageBuilder->remove('pspagebuilder');
 
         return parent::uninstall();
     }
@@ -228,6 +235,10 @@ class FlSlider extends Module
             $this->context->controller->addJS($this->_path.'views/js/back.js');
             $this->context->controller->addCSS($this->_path.'views/css/back.css');
         }
+        
+        if (Module::isEnabled('pspagebuilder')) {
+            $this->context->controller->addCSS($this->_path.'integrations/pspagebuilder/styles.css');
+        }
     }
 
     /**
@@ -237,5 +248,17 @@ class FlSlider extends Module
     {
         $this->context->controller->addJS($this->_path.'/views/js/front.js');
         $this->context->controller->addCSS($this->_path.'/views/css/front.css');
+    }
+
+    public function hookDisplayFLSlider($params)
+    {
+        return $this->showFrontSlider($params['id_flslider']);
+    }
+
+    public function showFrontSlider($idSlider)
+    {   $slider = Slider::getFrontSliderById($idSlider);
+        
+        $this->context->smarty->assign('slider', $slider);
+        return $this->display(__FILE__, 'views/templates/front/slider.tpl');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+require_once(_PS_MODULE_DIR_.'/flslider/classes/FLSHelper.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slide.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Device.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/SlideObjects.php');
@@ -97,6 +98,47 @@ class Slider extends ObjectModel
         $slider->devices = Device::getDeviceEdit((int) $slider->id);
 
         return $slider;
+    }
+
+    public static function getFrontSliderById($idSlider, $idShop=null)
+    {
+        if (!$idShop)
+            $idShop = Context::getContext()->shop->id;
+
+        $sql = 'SELECT id_slider, id_shop, `name`, settings
+                FROM `'._DB_PREFIX_.'flslider_sliders`
+                WHERE id_slider ='.$idSlider.' AND id_shop ='. (int) $idShop;
+        
+		$result = Db::getInstance()->getRow($sql);
+        $result['settings'] = json_decode($result['settings'], true);
+        $result['styles'] = Slider::getStyles($result['settings']);
+        $result['slides'] = [];
+        $sliderDeviceId = Device::getFrontSliderDeviceId($idSlider);
+        if (!empty($sliderDeviceId)) {
+            $slides = Slide::getFrontSlides($sliderDeviceId);
+            if (!empty($slides)) {
+                $result['slides'] = $slides;
+            }
+        }
+        
+
+
+		if (!$result)
+			return [];
+		
+		return $result;
+    }
+
+    public static function getStyles($settings)
+    {   $styles = '';
+        $devices = FLSHelper::listDevices();
+        $device =  $devices[Context::getContext()->getDevice()];
+        
+        foreach ($settings[$device]['styles'] as $prop => $value) {
+            $styles .= $prop.':'.$value.';';
+        }
+
+        return $styles;
     }
 
     

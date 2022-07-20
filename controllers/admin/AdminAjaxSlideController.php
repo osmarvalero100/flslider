@@ -35,7 +35,7 @@ class AdminAjaxSlideController extends ModuleAdminController
 {
     public function ajaxProcessSave()
     {
-        $data = Helper::getRequestData();
+        $data = FLSHelper::getRequestData();
         
         if (isset($data->id) && $data->id != null) {
             $slide = new Slide((int) $data->id);
