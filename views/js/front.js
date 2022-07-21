@@ -25,3 +25,46 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
+function flSlider(idSlider) {
+    let nextBtn = document.querySelector("#"+idSlider+" .gallery .buttons .next"),
+        prevBtn = document.querySelector("#"+idSlider+" .gallery .buttons .prev"),
+        slide = document.querySelectorAll("#"+idSlider+" .gallery .slides .block"),
+        i = 0;
+
+    prevBtn.onclick = (event) => {
+        event.preventDefault();
+        slide[i].classList.remove("active");
+        i--;
+
+        if (i < 0) {
+            i = slide.length - 1;
+        }
+        slide[i].classList.add("active");
+    };
+
+    nextBtn.onclick = (event) => {
+        event.preventDefault();
+        slide[i].classList.remove("active");
+        i++;
+
+        if (i >= slide.length) {
+            i = 0;
+        }
+
+        slide[i].classList.add("active");
+    };
+
+    slider_callback();
+    let sliderInterval = window.setInterval(slider_callback, 3000);
+
+    function slider_callback() {
+        nextBtn.click();
+    }
+}
+
+const flSliders = document.querySelectorAll(".fl-slider");
+if (flSliders.length > 0) {
+    flSliders.forEach(sl => {
+        flSlider(sl.id);
+    });
+}
