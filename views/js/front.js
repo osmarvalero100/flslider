@@ -25,10 +25,10 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-function flSlider(idSlider) {
-    let nextBtn = document.querySelector("#"+idSlider+" .gallery .buttons .next"),
-        prevBtn = document.querySelector("#"+idSlider+" .gallery .buttons .prev"),
-        slide = document.querySelectorAll("#"+idSlider+" .gallery .slides .block"),
+function flSlider(idSlider) { 
+    let nextBtn = document.querySelector("#"+idSlider+" .navs .next"),
+        prevBtn = document.querySelector("#"+idSlider+" .navs .prev"),
+        slide = document.querySelectorAll("#"+idSlider+" .slides .block"),
         i = 0;
 
     prevBtn.onclick = (event) => {

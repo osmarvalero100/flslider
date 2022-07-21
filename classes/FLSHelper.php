@@ -18,6 +18,10 @@ class FLSHelper {
             4 => 'mobile',
         ];
     }
+    public static function getDeviceName()
+    {
+        return FLSHelper::listDevices()[Context::getContext()->getDevice()];
+    }
     public static function allowImageExt()
     {
         return ['png', 'jpg', 'jpeg', 'gif'];
