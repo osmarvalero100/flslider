@@ -62,6 +62,24 @@ class SlideObjects extends ObjectModel
 		
 		return $result;
     }
+    public static function getSlideObjectsEdit($idSlide)
+    {
+        $slideObjects = [];
+        $sql = 'SELECT id_slide_object
+        FROM `'._DB_PREFIX_.'flslider_slides_objects`
+        WHERE id_slide = '.$idSlide;
+
+        $results = Db::getInstance()->ExecuteS($sql);
+
+        if (!empty($results)) {
+            foreach ($results as $so) {
+                $objSlide = new SlideObjects((int) $so['id_slide_object']);
+                $slideObjects[] = $objSlide;
+            }
+        }
+
+        return $slideObjects;
+    }
 
     public static function getFrontObjectsBySlideId($idSlide)
     {

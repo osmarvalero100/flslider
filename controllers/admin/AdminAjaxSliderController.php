@@ -59,6 +59,7 @@ class AdminAjaxSliderController extends ModuleAdminController
             if (!isset($data->id) || $data->id == null) {
                 Device::createDefaultDeviceSlide($slider->id);
             }
+            http_response_code(201);
             $this->ajaxDie(json_encode($slider));
         } catch (Exception $e) {
             http_response_code(400);
@@ -80,6 +81,23 @@ class AdminAjaxSliderController extends ModuleAdminController
             $this->ajaxDie(json_encode(['errors' => 'Slider Not Found']));
         }
         $this->ajaxDie(json_encode($slider));
+    }
+
+    public function ajaxProcessDelete() {
+        $data = FLSHelper::getRequestData();
+        if (empty($data->id)) {
+            http_response_code(400);
+            $this->ajaxDie(json_encode(['errors' => 'Se requiere un id de Slider']));
+        }
+        $slider = new Slider((int) $data->id);
+        if (empty($slider->id)) {
+            http_response_code(404);
+            $this->ajaxDie(json_encode(['errors' => 'Slider '.$data->id.' Not Found']));
+        }
+        
+        $slider->remove();
+        http_response_code(204);
+        exit;
     }
     
 }

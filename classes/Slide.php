@@ -75,7 +75,7 @@ class Slide extends ObjectModel
         if (!empty($results)) {
             foreach ($results as $slide) {
                 $objSlide = new Slide((int) $slide['id_slide']);
-                $objSlide->slideObjects = SlideObjects::getAllBySlide((int) $objSlide->id);
+                $objSlide->slideObjects = SlideObjects::getSlideObjectsEdit((int) $objSlide->id);
                 $slides[] = $objSlide;
             }
         }

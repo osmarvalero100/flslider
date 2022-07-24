@@ -72,6 +72,12 @@ class Device extends ObjectModel
             $slide->save();
         }
     }
+    public static function deleteByIdSlider($idSlider)
+    {
+        $sql = 'DELETE FROM `'._DB_PREFIX_.'flslider_devices`
+        WHERE id_slider = '.$idSlider;
+        Db::getInstance()->ExecuteS($sql);
+    }
 
     public static function getFrontSliderDeviceId($idSlider) {
         $device = Context::getContext()->getDevice();

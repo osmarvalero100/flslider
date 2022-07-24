@@ -20,7 +20,7 @@
                                 <button type="button" title="Duplicar" class="btn btn-primary">
                                     <i class="icon-copy"></i>
                                 </button>
-                                <button type="button" title="Eliminar" class="btn btn-primary">
+                                <button onclick="removeSlider({$slider.id_slider})" type="button" title="Eliminar" class="btn btn-primary">
                                     <i class="icon-trash"></i>
                                 </button>
                                 <div class="btn-group dropup">
@@ -72,6 +72,23 @@
 </style>
 
 {include file='./add.tpl'}
+
+{literal}
+    <script>
+        async function removeSlider(id) {
+            if (confirm("¿Estás seguro de eleiminar este slider?") == true) {
+                const res = await Slider.remove(JSON.stringify({id: id}));
+                if (res.status == 400 || res.status == 404) {
+                    const data = await res.json();
+                    alert(data.errors);
+                }
+                if (res.status == 204)
+                    document.getElementById('slider-' + id).remove();
+            }
+        }
+    </script> 
+{/literal}
+
 
 {* ICONS BACK *}
 <style>

@@ -90,4 +90,33 @@ class FLSHelper {
         $json = file_get_contents('php://input');
         return json_decode($json);
     }
+
+    public static function deleteDir($dirPath) {
+        if (is_dir($dirPath))
+            $dir_handle = opendir($dirPath);
+        if (!$dir_handle)
+            return false;
+
+        while($file = readdir($dir_handle)) {
+            if ($file != "." && $file != "..") {
+                if (!is_dir($dirPath."/".$file))
+                    unlink($dirPath."/".$file);
+                else
+                    FLSHelper::deleteDir($dirPath.'/'.$file);
+            }
+        }
+        closedir($dir_handle);
+        rmdir($dirPath);
+        return true;
+    }
+
+    public static function deleteImagesSlider($idSlider) {
+        $folderSlider = FLSHelper::getPathImages().$idSlider;
+        if (is_dir($folderSlider)) {
+            if (FLSHelper::deleteDir($folderSlider))
+                return true;
+        }
+
+        return false;
+    }
 }

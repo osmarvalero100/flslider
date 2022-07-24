@@ -77,7 +77,7 @@ class Slider {
     }
 
     static async remove(data) {
-        return await fetch(this.getUrlAjaxController('remove'), {
+        return await fetch(this.getUrlAjaxController('delete'), {
             method: 'POST',
             body: data
         });

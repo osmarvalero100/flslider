@@ -31,7 +31,8 @@ function editSlider() {
             const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
             Alpine.store("sl").current_slide = slide;
             await SlideObjects.clearCanvas();
-            SlideObjects.pushInCanvas(slide.slideObjects);
+            if (slide.slideObjects.length > 0)
+                SlideObjects.pushInCanvas(slide.slideObjects);
         },
         createSlide: async function() {
             const defaults = [];
