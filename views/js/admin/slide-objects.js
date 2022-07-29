@@ -93,7 +93,7 @@ class SlideObjects {
         element.style = styles;
         
         if (object.type == 'img')
-            element.src = attributes.props.srcset;
+            element.src = `${fls_image_uri}${idSlider}/${attributes.props.srcset}`;
 
         return element;
     }

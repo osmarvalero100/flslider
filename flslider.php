@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
 }
 require_once(dirname(__FILE__) . '/integrations/pspagebuilder/FLSliderWidgetPsPageBuilder.php');
 require_once(_PS_MODULE_DIR_.'/flslider/classes/Slider.php');
+require_once(_PS_MODULE_DIR_.'/flslider/classes/FLSHelper.php');
 
 class FlSlider extends Module
 {
@@ -256,9 +257,12 @@ class FlSlider extends Module
     }
 
     public function showFrontSlider($idSlider)
-    {   $slider = Slider::getFrontSliderById($idSlider);
-        
-        $this->context->smarty->assign('slider', $slider);
+    {   
+        $slider = Slider::getFrontSliderById($idSlider);
+        $this->context->smarty->assign([
+            'slider' => $slider,
+            'fls_image_uri' => FLSHelper::getUriImages(),
+        ]);
         return $this->display(__FILE__, 'views/templates/front/slider.tpl');
     }
 }

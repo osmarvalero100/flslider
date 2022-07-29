@@ -144,9 +144,6 @@ class Slider extends ObjectModel
                 $result['slides'] = $slides;
             }
         }
-        
-
-
 		if (!$result)
 			return [];
 		

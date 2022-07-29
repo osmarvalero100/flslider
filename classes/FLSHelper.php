@@ -42,10 +42,10 @@ class FLSHelper {
 
         $pathImage = $folderSlider.'/'.$name.'.'.$extImg;
         if(move_uploaded_file($_FILES['img_object']['tmp_name'], $pathImage)) {
-            $data['src'] = FLSHelper::getUriImages().$idSlider.'/'.$name.'.'.$extImg;
+            $data['src'] = $name.'.'.$extImg;
             if ($convertToWebp) {
                 if (FLSHelper::imageCreateWebp($pathImage)) {
-                    $data['srcset'] = FLSHelper::getUriImages().$idSlider.'/'.$name.'.webp';
+                    $data['srcset'] = $name.'.webp';
                 }
             }
         } else {

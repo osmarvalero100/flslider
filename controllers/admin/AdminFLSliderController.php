@@ -17,6 +17,9 @@ class AdminFLSliderController extends ModuleAdminController {
 
     public function initContent()
     {
+        //$this->context->smarty->assign('flslider_dir', $this->module->getLocalPath());
+        Media::addJsDefL('fls_image_uri', $this->module->getPathUri().'images/');
+        
         if (Tools::getValue('edit')){
             $this->content .= $this->editSlider(Tools::getValue('edit'));
             return parent::initContent();
