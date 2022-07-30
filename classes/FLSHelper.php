@@ -119,4 +119,15 @@ class FLSHelper {
 
         return false;
     }
+
+    public static function deleteImageObject($idSlider, $name) {
+        $folderSlider = FLSHelper::getPathImages().$idSlider;
+        $pathImage = $folderSlider.'/'.$name;
+        if (is_file($pathImage)) {
+            unlink($pathImage);
+            return true;
+        }
+
+        return false;
+    }
 }
