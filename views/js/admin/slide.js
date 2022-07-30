@@ -39,7 +39,7 @@ class Slide {
     static async remove(data) {
         return await fetch(this.getUrlAjaxController('remove'), {
             method: 'POST',
-            body: data
+            body: JSON.stringify(data),
         });
     }
 }

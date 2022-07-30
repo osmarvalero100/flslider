@@ -11,3 +11,4 @@
 </div>
 {* <script src="{$js_path}/admin/edit-slider.js"></script> *}
 
+{* {debug} *}

@@ -57,5 +57,22 @@ class AdminAjaxSlideController extends ModuleAdminController
             $this->ajaxDie(json_encode($data));
         }
     }
+
+    public function ajaxProcessDelete() {
+        $data = FLSHelper::getRequestData();
+        if (empty($data->id)) {
+            http_response_code(400);
+            $this->ajaxDie(json_encode(['errors' => 'Se requiere un id de Slider']));
+        }
+        $slide = new Slide((int) $data->id);
+        if (empty($slide->id)) {
+            http_response_code(404);
+            $this->ajaxDie(json_encode(['errors' => 'Slider '.$data->id.' Not Found']));
+        }
+        
+        $slider->remove();
+        http_response_code(204);
+        exit;
+    }
     
 }
