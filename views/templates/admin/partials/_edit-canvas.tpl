@@ -54,7 +54,7 @@
     <div class="panel-body">
         <div class="fl-wrapper" style="overflow-x: auto;padding-bottom: 15px;">
             <div {*x-data="getSlideObjects()"*} id="fl-canvas" :style="getSliderStyles()" style="position:relative;padding:0;margin:0 auto;overflow: hidden;">
-                {* {include file="./_edit-slide-objects.tpl"} *}
+                {include file="./_edit-slide-objects.tpl"}
             </div>
         </div>
         

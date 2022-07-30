@@ -12,7 +12,7 @@ function editSlider() {
             const editSlider = await res.json();
             Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
             await this.setDevice(1);
-            SlideObjects.pushInCanvas(Alpine.store("sl").current_slide.slideObjects);
+            //SlideObjects.pushInCanvas(Alpine.store("sl").current_slide.slideObjects);
             console.log(Alpine.store("sl"))
         },
         getSliderStyles: function(){
@@ -30,9 +30,9 @@ function editSlider() {
         setCurrentSlide: async function(idSlide) {
             const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
             Alpine.store("sl").current_slide = slide;
-            await SlideObjects.clearCanvas();
-            if (slide.slideObjects.length > 0)
-                SlideObjects.pushInCanvas(slide.slideObjects);
+            // await SlideObjects.clearCanvas();
+            if (Array.isArray(slide.slideObjects) && slide.slideObjects.length > 0)
+                SlideObjects.setAtributesObjects(slide.slideObjects);
         },
         createSlide: async function() {
             const defaults = [];
@@ -49,11 +49,27 @@ function editSlider() {
             newSlide.settings = JSON.parse(newSlide.settings);
             Alpine.store("sl").current_device.slides.push(newSlide);
         },
-        delSlide: function(idSlide) {
-            console.log(idSlide);
-            // const res = await Slide.delete(idSlide);
+        delSlide: async function(idSlide) {
+            const data = {
+                id: idSlide,
+                id_device: Alpine.store("sl").current_device.id
+            };
+            const res = await Slide.remove(data);
+            console.log(res.status)
+            const delSlide = await res.json();
+            await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+            
+        },
+        delSlideObject: async function(idSlideObject) {
+            const data = {
+                id: idSlideObject,
+                id_slider: Alpine.store("sl").slider.id
+            };
+            const res = await SlideObjects.remove(data);
+            console.log(res.status)
             // const delSlide = await res.json();
-            // Alpine.store("sl").slider.slides = Alpine.store("sl").slider.slides.filter(sl => sl.id != idSlide);
+            // await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+            
         },
         uploadImage: async function(event) {
             const img = event.target.files[0];

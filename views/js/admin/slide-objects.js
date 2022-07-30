@@ -45,15 +45,40 @@ class SlideObjects {
     }
 
     static async remove(data) {
-        return await fetch(this.getUrlAjaxController('remove'), {
+        return await fetch(this.getUrlAjaxController('delete'), {
             method: 'POST',
-            body: data
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         });
     }
 
     static async clearCanvas() {
         const canvas = Slider.getElementCanvas();
         canvas.innerHTML = '';
+    }
+
+    static setAtributesObjects(objects) {
+        setTimeout(() => {
+            objects.forEach(object => {
+                const id = object.id_slide_object || object.id;
+                const element = document.getElementById(id);
+                const props = object.attributes.props;
+                
+                for (var key in props) {
+                    if (key == 'srcset' || key == 'src') {
+                        props[key] = `${fls_image_uri}${idSlider}/${props[key]}`;
+                    }
+                    element[key] = props[key];
+                }
+                // props.forEach(prop => {
+                //     element[prop.key] = prop.value;
+                // });
+                const styles = object.attributes.styles;
+                for (var key in styles) {
+                    element.style[key] = styles[key];
+                }
+            });
+        }, 1000);
     }
 
     static pushInCanvas(objects) {
@@ -75,13 +100,28 @@ class SlideObjects {
                     // setTimeout(function() {$('.loader-bg').hide();}, 2000)
                 },
             });
+            // element.addEventListener('click', async function(e) {
+            //     const id = e.target.id;
+            //     console.log(id);
+            //     const data = {
+            //         id: id.replace('so-',''),
+            //         id_slider: idSlider,
+            //     }
+            //     const res = await SlideObjects.remove(data);
+            //     console.log(res.status)
+            //     if (res.status == 204) {
+            //         e.target.remove();
+            //     }
+            // });
         });
     }
 
     static createHtmlObject(object) {
+        console.log(object)
         let attributes = object.attributes;
         const element = document.createElement(object.type);
         element.id = object.id_slide_object || object.id;
+        //element.setAttribute("@click","delSlideObject(this.id)");
 
         let styles = '';
         const stylesProps = attributes.styles;
