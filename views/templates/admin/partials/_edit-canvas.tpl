@@ -9,7 +9,9 @@
 }
 .fl-wrapper::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background-color: #00aff0;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #00aff0;
 }
 #tool-bar {
     min-height: 40px;
