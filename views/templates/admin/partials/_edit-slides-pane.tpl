@@ -41,6 +41,11 @@
                     <div class="thumbnail no-image" >
                         <div class="caption">
                             <h3 x-text="slide.name"></h3>
+                            <i class="ri-time-line ri-lg" style="
+                                position: absolute;
+                                right: 12px;
+                                top: 7px;">
+                            </i>
                             <div class="text-center actions">
                                 <div class="btn-group dropup">
                                     <a href="" title="Cambiar nombre" class="btn btn-primary">
@@ -54,8 +59,9 @@
                                     </button>
                                     <div class="btn-group dropup">
                                         <button type="button" title="Más Opciones" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-code"></i> <span class="caret"></span></button>
+                                        <i class="icon-cogs"></i> <span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Programar</a></li>
                                             <li><a href="#">Desactivar</a></li>
                                         </ul>
                                     </div>

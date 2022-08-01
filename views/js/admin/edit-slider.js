@@ -31,8 +31,12 @@ function editSlider() {
             const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
             Alpine.store("sl").current_slide = slide;
             // await SlideObjects.clearCanvas();
-            if (Array.isArray(slide.slideObjects) && slide.slideObjects.length > 0)
-                SlideObjects.setAtributesObjects(slide.slideObjects);
+            if (Array.isArray(slide.slideObjects) && slide.slideObjects.length > 0) {
+                //SlideObjects.setAtributesObjects(slide.slideObjects);
+                setTimeout(() => {
+                    SlideObjects.addDraggable(slide.slideObjects);
+                }, 500);
+            }
         },
         createSlide: async function() {
             const defaults = [];

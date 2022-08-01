@@ -62,21 +62,24 @@ class SlideObjects {
             objects.forEach(object => {
                 const id = object.id_slide_object || object.id;
                 const element = document.getElementById(id);
-                const props = object.attributes.props;
+                if (element) {
+                    const props = object.attributes.props;
                 
-                for (var key in props) {
-                    if (key == 'srcset' || key == 'src') {
-                        props[key] = `${fls_image_uri}${idSlider}/${props[key]}`;
+                    for (var key in props) {
+                        if (key == 'srcset' || key == 'src') {
+                            props[key] = `${fls_image_uri}${idSlider}/${props[key]}`;
+                        }
+                        element[key] = props[key];
                     }
-                    element[key] = props[key];
+                    // props.forEach(prop => {
+                    //     element[prop.key] = prop.value;
+                    // });
+                    const styles = object.attributes.styles;
+                    for (var key in styles) {
+                        element.style[key] = styles[key];
+                    }
                 }
-                // props.forEach(prop => {
-                //     element[prop.key] = prop.value;
-                // });
-                const styles = object.attributes.styles;
-                for (var key in styles) {
-                    element.style[key] = styles[key];
-                }
+                
             });
         }, 1000);
     }
@@ -114,6 +117,28 @@ class SlideObjects {
             //     }
             // });
         });
+    }
+
+    static addDraggable(objects) {
+        objects.forEach(object => {
+            const element = document.getElementById(object.id_slide_object || object.id);
+            console.log(element)
+            $(element).draggable({
+                containment: "#fl-canvas",
+                drag: function() {
+                    // let x = $(this).offset().left;
+                    // let y = $(this).offset().left;
+                    // $(element).attr('data-pos-X', `${x}px`)
+                    // $(element).attr('data-pos-Y', `${y}px`)
+                    // console.log($(this).offset());
+                    //--OK
+                    // document.getElementById('10').offsetLeft;
+                    // document.getElementById('10').offsetTop
+                    // setTimeout(function() {$('.loader-bg').hide();}, 2000)
+                },
+            });
+        });
+        console.log('addDraggable');
     }
 
     static createHtmlObject(object) {
