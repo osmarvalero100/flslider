@@ -1,4 +1,16 @@
 <style>
+.fl-wrapper::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+.fl-wrapper::-webkit-scrollbar {
+	width: 7px;
+	background-color: transparent;
+}
+.fl-wrapper::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #00aff0;
+}
 #tool-bar {
     min-height: 40px;
     background-color: #f8f8f8;
