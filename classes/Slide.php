@@ -83,6 +83,30 @@ class Slide extends ObjectModel
         return $slides;
     }
 
+    public function remove()
+    {
+        $devices = Device::getDeviceEdit((int) $this->id);
+        if (!empty($devices)) {
+            foreach ($devices as $d) {
+                if (!empty($d->slides)) {
+                    foreach ($d->slides as $s) {
+                        if (!empty($s->slideObjects)) {
+                            foreach ($s->slideObjects as $so) {
+                                $so->delete();
+                            }
+                        }
+                        $s->delete();
+                    }
+                }
+                $d->delete();
+            }
+        }
+        FLSHelper::deleteImagesSlider($this->id);
+        if (!$this->delete())
+            return false;
+        return true;
+    }
+
     public static function getFrontSlides($idDevice)
     {
         $slides = [];
