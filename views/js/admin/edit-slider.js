@@ -1,3 +1,6 @@
+$(document).ready(function() {
+    $('#fl-slider-settings').draggable({containment: "body"});
+});
 const devices = {1: 'desktop', 2: 'tablet', 4: 'mobile'};
 Alpine.store("sl", {
     slider: new Slider(),
