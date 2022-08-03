@@ -15,7 +15,22 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="general">general</div>
             <div role="tabpanel" class="tab-pane" id="desing">Diseño</div>
-            <div role="tabpanel" class="tab-pane" id="calendar">Programar</div>
+            <div role="tabpanel" class="tab-pane" id="calendar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="s-from">Desde</label>
+                            <input type="text" class="form-control fls-datetime" id="s-from">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="s-to">Hasta</label>
+                            <input type="email" class="form-control fls-datetime" id="s-to">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
