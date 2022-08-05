@@ -16,6 +16,7 @@
         <div role="tabpanel" class="tab-pane" id="desing">Diseño</div>
         <div role="tabpanel" class="tab-pane" id="calendar">
             <div class="row">
+                <h3>Slide</h3>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="s-from">Desde</label>

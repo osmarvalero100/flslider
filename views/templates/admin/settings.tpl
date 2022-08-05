@@ -29,11 +29,19 @@
   padding: 15px;
 }
 </style>
-<div id="fl-slider-settings">
-    {include file="./partials/_slider-settings.tpl"}
-    <hr>
+<div id="fl-slider-settings" x-show="$store.sl.slider.config || $store.sl.current_slide.config">
+    <template x-if="$store.sl.slider.config">
+        {include file="./partials/_slider-settings.tpl"}
+        
+    </template>
+    <template x-if="$store.sl.current_slide.config">
+        {include file="./partials/_slide-settings.tpl"}
+    </template>
+    <br>
     <div class="row">
-        <button class="btn btn-default">Cancelar</button>
-        <button class="btn btn-primary">Guardar</button>
+        {literal}
+            <button class="btn btn-default" @click="hideConfig()">Cancelar</button>
+            <button class="btn btn-primary">Guardar</button>
+        {/literal}
     </div>
 </div>

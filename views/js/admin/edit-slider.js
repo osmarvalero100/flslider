@@ -33,6 +33,7 @@ function editSlider() {
             const res = await Slider.getEditById(idSlider);
             const editSlider = await res.json();
             Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
+            Alpine.store("sl").slider.config = false;
             await this.setDevice(1);
             //SlideObjects.pushInCanvas(Alpine.store("sl").current_slide.slideObjects);
             console.log(Alpine.store("sl"))
@@ -45,6 +46,10 @@ function editSlider() {
             }
             return Alpine.store("sl").slider.settings[device].styles;
         },
+        hideConfig: function(){
+            Alpine.store("sl").slider.config = false;
+            Alpine.store("sl").current_slide.config = false;
+        },
         setDevice: async function(numDevice) {
             Alpine.store("sl").current_device = Alpine.store("sl").slider.devices.find(sd => sd.device == numDevice);
             await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
@@ -52,6 +57,7 @@ function editSlider() {
         setCurrentSlide: async function(idSlide) {
             const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
             Alpine.store("sl").current_slide = slide;
+            Alpine.store("sl").current_slide.config = false;
             // await SlideObjects.clearCanvas();
             if (Array.isArray(slide.slideObjects) && slide.slideObjects.length > 0) {
                 //SlideObjects.setAtributesObjects(slide.slideObjects);
