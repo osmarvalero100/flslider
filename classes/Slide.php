@@ -18,6 +18,12 @@ class Slide extends ObjectModel
     /** @var string */
     public $settings;
 
+    /** @Column(type="datetime") */
+    public $date_start;
+
+    /** @Column(type="datetime") */
+    public $date_end;
+
     /** @var bool */
     public $active = true;
 

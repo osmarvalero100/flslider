@@ -18,6 +18,9 @@ class Slider extends ObjectModel
     /** @var string */
     public $settings;
 
+    /** @var int */
+    public $id_employee;
+
     /** @var bool */
     public $active = false;
 

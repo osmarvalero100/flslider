@@ -47,6 +47,10 @@ class AdminAjaxSlideController extends ModuleAdminController
         $slide->id_device = $data->id_device;
         $slide->order_slide = $data->order_slide;
         $slide->setSettings($data->settings);
+        if (!empty($data->date_start))
+            $slide->date_end = $data->date_start;
+        if (!empty($data->date_end))
+            $slide->date_end = $data->date_end;
         
         try {
             $slide->save();

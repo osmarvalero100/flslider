@@ -97,6 +97,7 @@ class FlSlider extends Module
 
     public function uninstall()
     {
+        require_once __DIR__ . '/sql/uninstall.php';
         Configuration::deleteByName('OPTIMIZEDSLIDER_LIVE_MODE');
         $widgetPageBuilder = new FLSliderWidgetPsPageBuilder();
         $widgetPageBuilder->remove('pspagebuilder');

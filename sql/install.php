@@ -49,6 +49,8 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'flslider_slides` (
     `name` varchar(100) NOT NULL,
     `order_slide` int(2) NOT NULL,
     `settings` text,
+    `date_start` DATETIME,
+    `date_end` DATETIME,
     `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
     PRIMARY KEY  (`id_slide`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';

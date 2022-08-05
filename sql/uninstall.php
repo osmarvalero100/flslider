@@ -31,6 +31,13 @@
  */
 $sql = array();
 
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_sliders`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_devices`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_slides`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_slides_objects`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_sliders`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'flslider_sliders`;';
+
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
         return false;
