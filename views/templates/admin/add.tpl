@@ -60,59 +60,6 @@ function sliderForm() {
 		}
 	}
 }
-
-
-
-
-/*
-$(function() {
-    document.getElementById('add').addEventListener('click', ()=>{
-        $('#adminFLSlider').modal();
-    });
-    // Create Slider
-    document.getElementById('addSlider').addEventListener('click', e => {
-        if (document.getElementById('name').value.trim() == '') {
-            document.getElementById('addError').innerText= 'Campo requerido.';
-            return false;
-        }
-        
-        // Default device sizes
-        const settings = {
-                'sizes' : {
-                    'desktop': {
-                        'w': '1350px',
-                        'h': '270px'
-                    },
-                    'tablet': {
-                        'w': '778px',
-                        'h': '220px'
-                    },
-                    'mobile': {
-                        'w': '480px',
-                        'h': '350px'
-                    }
-                }
-            }
-        
-        const formData = new FormData();
-        formData.append('name', document.getElementById('name').value);
-        formData.append('settings', JSON.stringify(settings));
-        formData.append('active', 0);
-
-        Helper.showLoading();
-        Slider.save(formData)
-        .then(res => res.json())
-        .then(res => {
-            if (res.id) {
-                let urlEditSlider = "{$ajaxUrlFLSlider}&edit="+res.id;
-                window.location.href = urlEditSlider;
-            }
-        })
-        .catch(error => console.error('Error:', error))
-        .finally(() => Helper.hideLoading());
-    });
-});
-*/
 </script>
 
 <div class="modal fade bs-example-modal-sm" id="adminFLSlider" tabindex="-1" role="dialog" aria-labelledby="modalListPromotions">

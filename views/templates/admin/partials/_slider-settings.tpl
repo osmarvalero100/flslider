@@ -1,4 +1,4 @@
-<div role="tabpanel">
+<div role="tabpanel" class="fls-slider-settings">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active">
             <a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a>

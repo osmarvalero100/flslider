@@ -44,7 +44,7 @@
 }
 </style>
 
-<div class="panel">
+<div class="panel fls-canvas">
     <div id="tool-bar" class="row">
         <input @change="uploadImage(event)" style="display: none;" type="file" id="uploadImg" accept="image/png, image/gif, image/jpeg">
         <div class="col-sd-2 col-md-4">
@@ -71,19 +71,16 @@
                 {include file="./_edit-slide-objects.tpl"}
             </div>
         </div>
-        
         <p class="text-center">Slider ( <span x-text="$store.sl.slider.name"></span> ):  W <small>1350px H 270px</small> </p>
         <hr>
-
         <code>
-        <p>Slider: <span x-text="$store.sl.slider.name"></span></p>
-        <template x-for="slide in $store.sl.slider.slides">
-            <div style="width:33%;display:inline-block;">
-                <p>Device: <span x-text="slide.device"></span></p>
-            </div>
-        </template>
+            <p>Slider: <span x-text="$store.sl.slider.name"></span></p>
+            <template x-for="slide in $store.sl.slider.slides">
+                <div style="width:33%;display:inline-block;">
+                    <p>Device: <span x-text="slide.device"></span></p>
+                </div>
+            </template>
         </code>
-
         <div class="row">
             <div class="col-md-3">
                 <ul class="list-group">

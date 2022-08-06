@@ -30,7 +30,7 @@
 		{l s='Thanks to PrestaShop, now I have a great module.' mod='optimizedslider'}<br />
 		{l s='I can configure it using the following configuration form.' mod='optimizedslider'}
 	</p>
-	<br />
+	<br>
 	<p>
 		{l s='This module will boost your sales!' mod='optimizedslider'}
 	</p>

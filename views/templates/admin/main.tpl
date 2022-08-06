@@ -9,7 +9,7 @@
                 <div id="slider-{$slider.id_slider}" class="col-sm-3 col-md-3">
                     <div class="thumbnail">
                         <a href="{$ajaxUrlFLSlider}&edit={$slider.id_slider}">
-                        <img src="/modules/flslider/views/img/cover.png" alt="{$slider.name}">
+                            <img src="/modules/flslider/views/img/cover.png" alt="{$slider.name}">
                         </a>
                         <div class="caption text-center">
                             <h3>{$slider.name}</h3>
