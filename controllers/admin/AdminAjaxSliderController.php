@@ -99,5 +99,19 @@ class AdminAjaxSliderController extends ModuleAdminController
         http_response_code(204);
         exit;
     }
+
+    public function ajaxProcessGetById() {
+        $id = Tools::getValue('id') ?? null;
+        if (empty($id)) {
+            http_response_code(400);
+            $this->ajaxDie(json_encode(['errors' => 'Se requiere un id de Slider']));
+        }
+        $slider = new Slider((int) $id);
+        if (empty($slider->id)) {
+            http_response_code(404);
+            $this->ajaxDie(json_encode(['errors' => 'Slider '.$id.' Not Found']));
+        }
+        $this->ajaxDie(json_encode($slider)); 
+    }
     
 }

@@ -19,13 +19,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="s-from">Desde</label>
-                        <input type="text" class="form-control fls-datetime" id="s-from">
+                        <input x-model="$store.sl.slider.date_start" type="datetime-local" class="form-control fls-datetime" id="s-from">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="s-to">Hasta</label>
-                        <input type="email" class="form-control fls-datetime" id="s-to">
+                        <input x-model="$store.sl.slider.date_end" type="datetime-local" class="form-control fls-datetime" id="s-to">
                     </div>
                 </div>
             </div>

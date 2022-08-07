@@ -13,10 +13,15 @@ $(document).ready(function() {
     //     });
     // }
 
-    $('.fls-datetime').datetimepicker({
-        dateFormat: "yy-mm-dd",
-        timeFormat:  "hh:mm:ss",
-    });
+//     const now = new Date(document.getElementById('s-to').value);
+// const offsetMs = now.getTimezoneOffset() * 60 * 1000;
+// const dateLocal = new Date(now.getTime() - offsetMs);
+// const str = dateLocal.toISOString().slice(0, 19).replace("T", " ");
+
+    // $('.fls-datetime').datetimepicker({
+    //     dateFormat: "yy-mm-dd",
+    //     timeFormat:  "hh:mm:ss",
+    // });
 
     
 });
@@ -46,10 +51,6 @@ function editSlider() {
             }
             return Alpine.store("sl").slider.settings[device].styles;
         },
-        hideConfig: function(){
-            Alpine.store("sl").slider.config = false;
-            Alpine.store("sl").current_slide.config = false;
-        },
         setDevice: async function(numDevice) {
             Alpine.store("sl").current_device = Alpine.store("sl").slider.devices.find(sd => sd.device == numDevice);
             await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
@@ -64,6 +65,24 @@ function editSlider() {
                 setTimeout(() => {
                     SlideObjects.addDraggable(slide.slideObjects);
                 }, 500);
+            }
+        },
+        showSliderSettings: function(){
+            Alpine.store("sl").slider.config = true;
+            configSlider = Alpine.store("sl").slider;
+            // $('.fls-datetime').datetimepicker({
+            //     dateFormat: "yy-mm-dd",
+            //     timeFormat:  "hh:mm:ss",
+            // });
+            console.log(configSlider)
+        },
+        hideConfig: async function(){
+            if (Alpine.store("sl").slider.config) {
+                const res = await Slider.getById(idSlider);
+                const slider = await res.json();
+                Alpine.store("sl").slider.date_start = slider.date_start;
+                Alpine.store("sl").slider.date_end = slider.date_end;
+                Alpine.store("sl").slider.config = false;
             }
         },
         createSlide: async function() {

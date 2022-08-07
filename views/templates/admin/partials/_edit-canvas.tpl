@@ -49,8 +49,9 @@
         <input @change="uploadImage(event)" style="display: none;" type="file" id="uploadImg" accept="image/png, image/gif, image/jpeg">
         <div class="col-sd-2 col-md-4">
             <i @click="document.getElementById('uploadImg').click()" id="a-img" class="ri-image-2-line ri-2x" title="Agregar imagen"></i>
-            <i id="a-text" class="ri-text ri-2x" title="Agregar texto"></i>
-            <i id="a-link" class="ri-link ri-2x" title="Agregar enlace"></i>
+            <i id="a-text" class="ri-t-box-line ri-2x" title="Agregar texto"></i>
+            <i id="a-link" class="ri-send-plane-2-line ri-2x" title="Agregar botón"></i>
+            <i class="ri-menu-5-line ri-2x" title="Agregar menú"></i>
         </div>
         <div class="col-sd-2 col-md-4 text-center">
             <i class="ri-bar-chart-box-line ri-2x" title="Google Tag Manager"></i>
