@@ -9,6 +9,7 @@
   min-width: 30%;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
   border-radius: 3px;
+  width: 30%;
 }
 #fl-slider-settings .tab-content {
   padding: 15px;

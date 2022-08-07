@@ -80,6 +80,7 @@ class AdminAjaxSliderController extends ModuleAdminController
             http_response_code(400);
             $this->ajaxDie(json_encode(['errors' => 'Slider Not Found']));
         }
+        $slider->active = (bool) $slider->active;
         $this->ajaxDie(json_encode($slider));
     }
 
@@ -111,6 +112,7 @@ class AdminAjaxSliderController extends ModuleAdminController
             http_response_code(404);
             $this->ajaxDie(json_encode(['errors' => 'Slider '.$id.' Not Found']));
         }
+        $slider->active = (bool) $slider->active;
         $this->ajaxDie(json_encode($slider)); 
     }
     

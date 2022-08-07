@@ -1,30 +1,3 @@
-$(document).ready(function() {
-    $('#fl-slider-settings').draggable({containment: "body"});
-    // Datapicker
-    // const datepickers = document.querySelectorAll('.fls-datetime');
-    // if (datepickers.length > 0) {
-    //     datepickers.forEach(dp => {
-    //         dp.addEventListener('focus', () => {
-    //             $(dp).datetimepicker({
-    //                 dateFormat: "yy-mm-dd",
-    //                 timeFormat:  "hh:mm:ss"
-    //             });
-    //         });
-    //     });
-    // }
-
-//     const now = new Date(document.getElementById('s-to').value);
-// const offsetMs = now.getTimezoneOffset() * 60 * 1000;
-// const dateLocal = new Date(now.getTime() - offsetMs);
-// const str = dateLocal.toISOString().slice(0, 19).replace("T", " ");
-
-    // $('.fls-datetime').datetimepicker({
-    //     dateFormat: "yy-mm-dd",
-    //     timeFormat:  "hh:mm:ss",
-    // });
-
-    
-});
 const devices = {1: 'desktop', 2: 'tablet', 4: 'mobile'};
 Alpine.store("sl", {
     slider: new Slider(),
@@ -38,6 +11,7 @@ function editSlider() {
             const res = await Slider.getEditById(idSlider);
             const editSlider = await res.json();
             Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
+           // Alpine.store("sl").slider.active = Boolean(Alpine.store("sl").slider.active);
             Alpine.store("sl").slider.config = false;
             await this.setDevice(1);
             //SlideObjects.pushInCanvas(Alpine.store("sl").current_slide.slideObjects);
@@ -179,6 +153,16 @@ function editSlider() {
     }
 }
 
+$(document).ready(function() {
+    $('#fl-slider-settings').draggable({containment: "body"});
+});
+
+function showDatapicker(){
+    $('body .fls-datetime').datetimepicker({
+        dateFormat: "yy-mm-dd",
+        timeFormat:  "hh:mm:ss",
+    });
+}
 // Guardar con CTRL + S
 document.onkeydown = (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === 's') {
