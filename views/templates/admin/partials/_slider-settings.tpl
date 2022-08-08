@@ -86,13 +86,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="s-from">Desde</label>
-                        <input x-model="$store.sl.slider.date_start" type="text" onclick="showDatapicker()" class="form-control fls-datetime" id="s-from">
+                        <input x-model="$store.sl.slider.date_start" type="text" class="form-control fls-datetime" id="s-from" placeholder="AAAA-MM-DD HH:MM:SS">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="s-to">Hasta</label>
-                        <input x-model="$store.sl.slider.date_end" type="text" class="form-control fls-datetime" id="s-to">
+                        <input x-model="$store.sl.slider.date_end" type="text" class="form-control fls-datetime" id="s-to" placeholder="AAAA-MM-DD HH:MM:SS">
                     </div>
                 </div>
                 

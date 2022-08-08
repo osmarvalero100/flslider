@@ -62,6 +62,7 @@ class Slider {
     }
 
     static async save(data) {
+        console.log(JSON.stringify(data))
         return await fetch(this.getUrlAjaxController('save'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

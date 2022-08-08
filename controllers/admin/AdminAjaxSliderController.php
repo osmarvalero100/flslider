@@ -36,6 +36,7 @@ class AdminAjaxSliderController extends ModuleAdminController
     public function ajaxProcessSave()
     {
         $data = FLSHelper::getRequestData();
+        //var_dump($data);
 
         if (isset($data->id) && $data->id != null) {
             $slider = new Slider((int)$data->id);
@@ -45,9 +46,10 @@ class AdminAjaxSliderController extends ModuleAdminController
 
         $slider->name = $data->name;
         $slider->id_shop = $this->context->shop->id;
-        $slider->setSettings($data->settings);
+        if (!empty($data->settings))
+            $slider->setSettings($data->settings);
         if (!empty($data->date_start))
-            $slider->date_end = $data->date_start;
+            $slider->date_start = $data->date_start;
         if (!empty($data->date_end))
             $slider->date_end = $data->date_end;
         if (isset($data->active))
@@ -58,8 +60,9 @@ class AdminAjaxSliderController extends ModuleAdminController
             // Si es un nuevo slider se le crea un slide por defecto para cada dispositivo
             if (!isset($data->id) || $data->id == null) {
                 Device::createDefaultDeviceSlide($slider->id);
+                http_response_code(201);
             }
-            http_response_code(201);
+            
             $this->ajaxDie(json_encode($slider));
         } catch (Exception $e) {
             http_response_code(400);

@@ -59,6 +59,15 @@ function editSlider() {
                 Alpine.store("sl").slider.config = false;
             }
         },
+        saveConfig: async function(){
+            if (Alpine.store("sl").slider.config) {
+                Alpine.store("sl").slider.date_start = document.getElementById('s-from').value;
+                Alpine.store("sl").slider.date_end = document.getElementById('s-to').value;
+                console.log(Alpine.store("sl").slider)
+                const res = await Slider.save(Alpine.store("sl").slider);
+                res.status == 200 ? Alpine.store("sl").slider.config = false : alert('Error al guardar el slider');
+            }
+        },
         createSlide: async function() {
             const defaults = [];
             const qtySlides = Alpine.store("sl").current_device.slides.length;

@@ -27,7 +27,7 @@
     <div class="row">
         {literal}
             <button class="btn btn-default" @click="hideConfig()">Cancelar</button>
-            <button class="btn btn-primary">Guardar</button>
+            <button class="btn btn-primary" @click="saveConfig()">Guardar</button>
         {/literal}
     </div>
 </div>
