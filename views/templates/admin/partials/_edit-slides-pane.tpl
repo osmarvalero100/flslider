@@ -48,23 +48,18 @@
                                 </i>
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
-                                        <a href="" title="Cambiar nombre" class="btn btn-primary">
-                                            <i class="icon-edit"></i>
-                                        </a>
-                                        <button type="button" title="Duplicar" class="btn btn-primary">
-                                            <i class="icon-copy"></i>
-                                        </button>
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">
                                             <i class="icon-trash"></i>
                                         </button>
-                                        <div class="btn-group dropup">
-                                            <button type="button" title="Más Opciones" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                            <i class="icon-cogs"></i> <span class="caret"></span></button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Programar</a></li>
-                                                <li><a href="#">Desactivar</a></li>
-                                            </ul>
-                                        </div>
+                                        <button  type="button" title="Apagar" class="btn btn-primary">
+                                            <i class="icon-power-off"></i>
+                                        </button>
+                                        <button type="button" title="Duplicar" class="btn btn-primary">
+                                            <i class="icon-copy"></i>
+                                        </button>
+                                        <button  type="button" title="configurar" class="btn btn-primary">
+                                            <i class="icon-cogs"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
