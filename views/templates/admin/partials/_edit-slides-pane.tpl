@@ -57,7 +57,7 @@
                                         <button type="button" title="Duplicar" class="btn btn-primary">
                                             <i class="icon-copy"></i>
                                         </button>
-                                        <button  type="button" title="configurar" class="btn btn-primary">
+                                        <button @click="showSlideSettings()" type="button" title="configurar" class="btn btn-primary">
                                             <i class="icon-cogs"></i>
                                         </button>
                                     </div>

@@ -43,7 +43,6 @@ function editSlider() {
         },
         showSliderSettings: function(){
             Alpine.store("sl").slider.config = true;
-            configSlider = Alpine.store("sl").slider;
         },
         hideConfig: async function(){
             if (Alpine.store("sl").slider.config) {
@@ -52,6 +51,14 @@ function editSlider() {
                 Alpine.store("sl").slider.date_start = slider.date_start;
                 Alpine.store("sl").slider.date_end = slider.date_end;
                 Alpine.store("sl").slider.config = false;
+            }
+
+            if (Alpine.store("sl").current_slide.config) {
+                const res = await Slide.getById(Alpine.store("sl").current_slide.id);
+                const slide = await res.json();
+                // Alpine.store("sl").current_slide.date_start = slide.date_start;
+                // Alpine.store("sl").current_slide.date_end = slide.date_end;
+                Alpine.store("sl").current_slide.config = false;
             }
         },
         saveConfig: async function(){
@@ -76,6 +83,11 @@ function editSlider() {
             const newSlide = await res.json();
             newSlide.settings = JSON.parse(newSlide.settings);
             Alpine.store("sl").current_device.slides.push(newSlide);
+        },
+        showSlideSettings: function(){
+            setTimeout(() => {
+                Alpine.store("sl").current_slide.config = true;
+            }, 400);
         },
         delSlide: async function(idSlide) {
             const data = {
