@@ -69,8 +69,8 @@ function editSlider() {
                 res.status == 200 ? Alpine.store("sl").slider.config = false : alert('Error al guardar el slider');
             }
             if (Alpine.store("sl").current_slide.config) {
-                Alpine.store("sl").current_slide.date_start = document.getElementById('s-from').value;
-                Alpine.store("sl").current_slide.date_end = document.getElementById('s-to').value;
+                Alpine.store("sl").current_slide.date_start = document.getElementById('slide-from').value;
+                Alpine.store("sl").current_slide.date_end = document.getElementById('slide-to').value;
                 const res = await Slide.save(Alpine.store("sl").current_slide);
                 res.status == 200 ? Alpine.store("sl").current_slide.config = false : alert('Error al guardar el slide');
             }

@@ -41,6 +41,8 @@ class Slide extends ObjectModel
             'name' => ['type' => self::TYPE_STRING, 'required' => true],
             'order_slide' => ['type' => self::TYPE_INT, 'required' => true, 'validate' => 'isUnsignedId'],
             'settings' => ['type' => self::TYPE_STRING, 'required' => true, 'validate' => 'isCleanHtml'],
+            'date_start' => ['type' => self::TYPE_DATE],
+            'date_end' => ['type' => self::TYPE_DATE],
             'active' => ['type' => self::TYPE_BOOL, 'validate' => 'isBool', 'required' => true],
         ],
     ];

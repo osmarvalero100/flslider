@@ -26,33 +26,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="s-from">Desde</label>
-                        <input x-model="$store.sl.current_slide.date_start" type="text" class="form-control fls-datetime" id="s-from" placeholder="AAAA-MM-DD HH:MM:SS">
+                        <label for="slide-from">Desde</label>
+                        <input x-model="$store.sl.current_slide.date_start" type="text" class="form-control fls-datetime" id="slide-from" placeholder="AAAA-MM-DD HH:MM:SS">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="s-to">Hasta</label>
-                        <input x-model="$store.sl.current_slide.date_end" type="text" class="form-control fls-datetime" id="s-to" placeholder="AAAA-MM-DD HH:MM:SS">
+                        <label for="slide-to">Hasta</label>
+                        <input x-model="$store.sl.current_slide.date_end" type="text" class="form-control fls-datetime" id="slide-to" placeholder="AAAA-MM-DD HH:MM:SS">
                     </div>
                 </div>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="calendar">
             <div class="row">
-                <h3>Slide</h3>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="s-from">Desde</label>
-                        <input type="text" class="form-control fls-datetime" id="slide-from">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="s-to">Hasta</label>
-                        <input type="email" class="form-control fls-datetime" id="sslide-to">
-                    </div>
-                </div>
+                <h3>¡Pronto!</h3>
+                
             </div>
         </div>
     </div>
