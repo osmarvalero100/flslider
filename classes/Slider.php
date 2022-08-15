@@ -134,9 +134,15 @@ class Slider extends ObjectModel
 
         $sql = 'SELECT id_slider, id_shop, `name`, settings
                 FROM `'._DB_PREFIX_.'flslider_sliders`
-                WHERE id_slider ='.$idSlider.' AND id_shop ='. (int) $idShop;
+                WHERE id_slider = '.$idSlider
+                    .' AND id_shop = '. (int) $idShop
+                    .' AND (date_start IS NULL OR date_start <= current_timestamp())'
+                    .' AND active = 1';
         
 		$result = Db::getInstance()->getRow($sql);
+        if (!$result)
+            return null;
+            
         $result['settings'] = json_decode($result['settings'], true);
         $result['styles'] = Slider::getStyles($result['settings']);
         $result['slides'] = [];
@@ -147,8 +153,6 @@ class Slider extends ObjectModel
                 $result['slides'] = $slides;
             }
         }
-		if (!$result)
-			return [];
 		
 		return $result;
     }

@@ -65,6 +65,8 @@ function flSlider(idSlider) {
 const flSliders = document.querySelectorAll(".fl-slider");
 if (flSliders.length > 0) {
     flSliders.forEach(sl => {
-        flSlider(sl.id);
+        if (sl.querySelector('.slide')) {
+            flSlider(sl.id);
+        }
     });
 }
