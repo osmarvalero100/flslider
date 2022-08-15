@@ -41,11 +41,27 @@
                         <div class="thumbnail no-image" >
                             <div class="caption">
                                 <h3 x-text="slide.name"></h3>
-                                <i class="ri-time-line ri-lg" style="
-                                    position: absolute;
-                                    right: 12px;
-                                    top: 7px;">
-                                </i>
+                                {literal}
+                                    <template x-if="slide.date_start || slide.date_end">
+                                        <i class="ri-time-line ri-lg" 
+                                            style="
+                                                position: absolute;
+                                                right: 12px;
+                                                top: 7px;"
+                                            :style="()=>{
+                                                if(slide.date_end != null && (new Date() > new Date(slide.date_end))) {
+                                                    return {opacity: 0.5};
+                                                }
+                                                return {};
+                                            }"
+                                            :title="()=>{
+                                                const start = slide.date_start != null && slide.date_start.substring(0,4) != '0000' ? 'Desde: '+slide.date_start : '';
+                                                const end = slide.date_end != null && slide.date_end.substring(0,4) != '0000' ? 'Hasta: '+slide.date_end : '';
+                                                return  start + '  ' + end;
+                                                }">
+                                        </i>
+                                    </template>
+                                {/literal}
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">
