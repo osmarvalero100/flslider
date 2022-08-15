@@ -61,6 +61,7 @@ class AdminFLSliderController extends ModuleAdminController {
         ]);
         
         $this->context->controller->addJqueryUI('ui.draggable');
+        $this->context->controller->addJqueryUI('ui.sortable');
         //$this->context->controller->addJqueryUI('ui.resizable');
         $this->addJS($js_path . '/admin/helper.js');
         $this->addJS($js_path . '/admin/slider.js');

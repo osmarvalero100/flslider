@@ -42,7 +42,9 @@
                             <div class="caption">
                                 <h3 x-text="slide.name"></h3>
                                 {literal}
-                                    <template x-if="slide.date_start || slide.date_end">
+                                    <template x-if="()=>{
+                                        return (slide.date_start && slide.date_start.substring(0,4) != '0000') || (slide.date_end && slide.date_end.substring(0,4) != '0000');
+                                    }">
                                         <i class="ri-time-line ri-lg" 
                                             style="
                                                 position: absolute;
@@ -124,3 +126,9 @@
         </div>
     </div>
 </div>
+
+<script>
+$("#slideSelector .row").sortable({
+    items: ".slide:not(#addSlide)"
+  });
+</script>
