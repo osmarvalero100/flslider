@@ -96,6 +96,7 @@ class AdminAjaxSlideController extends ModuleAdminController
             http_response_code(400);
             $this->ajaxDie(json_encode(['errors' => 'Se requiere un id de Slider']));
         }
+        
         $slide = new Slide((int) $data->id);
         if (empty($slide->id)) {
             http_response_code(404);

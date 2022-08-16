@@ -98,11 +98,21 @@ function editSlider() {
         delSlide: async function(idSlide) {
             const data = {
                 id: idSlide,
-                id_device: Alpine.store("sl").current_device.id
+               // id_device: Alpine.store("sl").current_device.id
             };
             const res = await Slide.remove(data);
-            const delSlide = await res.json();
-            await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+            if (res.status == 204) {
+                await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+                const index = Alpine.store("sl").current_device.slides.findIndex(sl => sl.id == idSlide);
+                Alpine.store("sl").current_device.slides.splice(index, 1);
+            }
+            // if (res.status == 204) {
+            //     await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+            //     const device = Alpine.store('sl').current_device;
+            //     const slidesDevice = Alpine.store('sl').slider.devices.find(d => d.id = device.id);
+            //     const slide = slidesDevice.slides.find(slide => slide.id == slideId);
+            // }
+            //const delSlide = await res.json();
         },
         delSlideObject: async function(idSlideObject) {
             const data = {

@@ -45,7 +45,7 @@ class Slide {
     }
 
     static async remove(data) {
-        return await fetch(this.getUrlAjaxController('remove'), {
+        return await fetch(this.getUrlAjaxController('delete'), {
             method: 'POST',
             body: JSON.stringify(data),
         });

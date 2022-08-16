@@ -145,7 +145,7 @@ $("#slideSelector .row").sortable({
                         id: slideId,
                         order_slide: newOrder
                     });
-                    const slide = dev.slides.find(slide => slide.id == slideId);
+                    const slide = slidesDevice.slides.find(slide => slide.id == slideId);
                     slide.order_slide = newOrder;
                 }
             }
