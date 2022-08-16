@@ -36,6 +36,7 @@
             <div class="row">
                 <template x-for="slide in $store.sl.current_device.slides">
                     <div class="col-sm-3 col-md-2 slide"
+                        :data-slide-id="slide.id"
                         :class="slide.id == $store.sl.current_slide.id ? 'active-slide':''"
                         @click="setCurrentSlide(slide.id)">
                         <div class="thumbnail no-image" >
@@ -129,6 +130,27 @@
 
 <script>
 $("#slideSelector .row").sortable({
-    items: ".slide:not(#addSlide)"
-  });
+    items: ".slide:not(#addSlide)",
+    update: function( event, ui ) {
+        const slides = document.querySelectorAll('#slideSelector .slide');
+        if (slides) {
+            let slidesPositions = [];
+            const device = Alpine.store('sl').current_device;
+            const slidesDevice = Alpine.store('sl').slider.devices.find(d => d.id = device.id);
+            for (let i = 0; i < slides.length; i++) {
+                if (slides[i].dataset.hasOwnProperty('slideId') && slides[i].dataset.slideId != '') {
+                    const newOrder = i + 1;
+                    const slideId =  slides[i].dataset.slideId;
+                    slidesPositions.push({
+                        id: slideId,
+                        order_slide: newOrder
+                    });
+                    const slide = dev.slides.find(slide => slide.id == slideId);
+                    slide.order_slide = newOrder;
+                }
+            }
+            Slide.updateOrder(slidesPositions);
+        }
+    }
+});
 </script>

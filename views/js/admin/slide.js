@@ -29,6 +29,14 @@ class Slide {
         });
     }
 
+    static async updateOrder(data) {
+        return await fetch(this.getUrlAjaxController('updateOrder'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+    }
+
     static async changeStatus(data) {
         return await fetch(this.getUrlAjaxController('changeStatus'), {
             method: 'POST',

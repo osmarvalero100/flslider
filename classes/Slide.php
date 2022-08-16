@@ -75,9 +75,10 @@ class Slide extends ObjectModel
     public static function getSlidesEdit($idDevice)
     {
         $slides = [];
-        $sql = 'SELECT id_slide
+        $sql = 'SELECT id_slide, order_slide
         FROM `'._DB_PREFIX_.'flslider_slides`
-        WHERE id_device = '.$idDevice;
+        WHERE id_device = '.$idDevice
+        .' ORDER BY order_slide';
         $results = Db::getInstance()->ExecuteS($sql);
 
         if (!empty($results)) {

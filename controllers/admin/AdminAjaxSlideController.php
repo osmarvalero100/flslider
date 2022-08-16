@@ -79,6 +79,17 @@ class AdminAjaxSlideController extends ModuleAdminController
         $this->ajaxDie(json_encode($slide)); 
     }
 
+    public function ajaxProcessUpdateOrder() {
+        $slides = FLSHelper::getRequestData();
+        foreach ($slides as $sl) {
+            $slide = new Slide((int) $sl->id);
+            $slide->order_slide = (int) $sl->order_slide;
+            $slide->save();
+        }
+        http_response_code(204);
+        exit;
+    }
+
     public function ajaxProcessDelete() {
         $data = FLSHelper::getRequestData();
         if (empty($data->id)) {
@@ -91,7 +102,7 @@ class AdminAjaxSlideController extends ModuleAdminController
             $this->ajaxDie(json_encode(['errors' => 'Slider '.$data->id.' Not Found']));
         }
         
-        $slider->remove();
+        $slide->remove();
         http_response_code(204);
         exit;
     }
