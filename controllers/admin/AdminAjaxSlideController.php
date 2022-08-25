@@ -90,6 +90,28 @@ class AdminAjaxSlideController extends ModuleAdminController
         exit;
     }
 
+    public function ajaxProcessChangeStatus()
+    {
+        $data = FLSHelper::getRequestData();
+
+        if (isset($data->id) && $data->id != null) {
+            $slide = new Slide((int) $data->id);
+        } else {
+            http_response_code(400);
+            $data = ['error' => 'Id slide es requerido'];
+            $this->ajaxDie(json_encode($data));
+        }
+
+        $slide->active = !$slide->active;
+
+        try {
+            $slide->save();
+            http_response_code(204);
+        } catch (Exception $e) {
+            $this->ajaxDie(json_encode(['error' => $e->getMessage()]));
+        }
+    }
+
     public function ajaxProcessDelete() {
         $data = FLSHelper::getRequestData();
         if (empty($data->id)) {

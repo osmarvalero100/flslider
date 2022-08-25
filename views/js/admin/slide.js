@@ -40,7 +40,8 @@ class Slide {
     static async changeStatus(data) {
         return await fetch(this.getUrlAjaxController('changeStatus'), {
             method: 'POST',
-            body: data,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         });
     }
 

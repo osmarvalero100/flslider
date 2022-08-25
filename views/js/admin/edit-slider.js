@@ -95,6 +95,22 @@ function editSlider() {
                 Alpine.store("sl").current_slide.config = true;
             }, 400);
         },
+        changeStatus: async function(slideId) {
+            const res = await Slide.changeStatus({id: slideId});
+            if (res.status == 400) {
+                alert(res.error);
+            } else {
+                Alpine.store("sl").current_device.slides.forEach(sl => {
+                    if (sl.id == slideId) {
+                        if (sl.active == 0) {
+                            sl.active = 1;
+                        } else {
+                            sl.active = 0;
+                        }
+                    }
+                });
+            }
+        },
         delSlide: async function(idSlide) {
             const data = {
                 id: idSlide,

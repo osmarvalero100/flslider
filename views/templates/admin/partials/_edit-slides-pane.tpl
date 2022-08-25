@@ -34,29 +34,30 @@
     <div class="panel-body">
         <div id="slideSelector">
             <div class="row">
+            {literal}
                 <template x-for="slide in $store.sl.current_device.slides">
                     <div class="col-sm-3 col-md-2 slide"
                         :data-slide-id="slide.id"
                         :class="slide.id == $store.sl.current_slide.id ? 'active-slide':''"
+                        :style="()=>{
+                            if (slide.active == 0 || (slide.date_end != null && (new Date() > new Date(slide.date_end)))) {
+                                return {opacity: .5}
+                            }
+                            return {}
+                        }"
                         @click="setCurrentSlide(slide.id)">
                         <div class="thumbnail no-image" >
                             <div class="caption">
                                 <h3 x-text="slide.name"></h3>
-                                {literal}
                                     <template x-if="()=>{
-                                        return (slide.date_start && slide.date_start.substring(0,4) != '0000') || (slide.date_end && slide.date_end.substring(0,4) != '0000');
-                                    }">
-                                        <i class="ri-time-line ri-lg" 
+                                            return (slide.date_start && slide.date_start.substring(0,4) != '0000') || (slide.date_end && slide.date_end.substring(0,4) != '0000');
+                                        }">
+                                        <i class="ri-lg"
+                                            :class="slide.date_end != null && (new Date() > new Date(slide.date_end)) ? 'ri-timer-line':'ri-time-line'"
                                             style="
                                                 position: absolute;
                                                 right: 12px;
                                                 top: 7px;"
-                                            :style="()=>{
-                                                if(slide.date_end != null && (new Date() > new Date(slide.date_end))) {
-                                                    return {opacity: 0.5};
-                                                }
-                                                return {};
-                                            }"
                                             :title="()=>{
                                                 const start = slide.date_start != null && slide.date_start.substring(0,4) != '0000' ? 'Desde: '+slide.date_start : '';
                                                 const end = slide.date_end != null && slide.date_end.substring(0,4) != '0000' ? 'Hasta: '+slide.date_end : '';
@@ -64,13 +65,12 @@
                                                 }">
                                         </i>
                                     </template>
-                                {/literal}
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">
                                             <i class="icon-trash"></i>
                                         </button>
-                                        <button  type="button" title="Apagar" class="btn btn-primary">
+                                        <button @click="changeStatus(slide.id)" type="button" :title="slide.active == 0 ? 'Encender':'Apagar'" class="btn btn-primary">
                                             <i class="icon-power-off"></i>
                                         </button>
                                         <button type="button" title="Duplicar" class="btn btn-primary">
@@ -85,6 +85,7 @@
                         </div>
                     </div>
                 </template>
+            {/literal}
                 {*foreach from=$slides item=slide key=key}
                 <div class="col-sm-3 col-md-2 {if $key == 0}active-slide{/if} slide">
                     <div class="thumbnail no-image" >
