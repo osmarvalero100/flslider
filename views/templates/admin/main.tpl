@@ -46,7 +46,7 @@
     position: absolute;
     width: 90%;
 }
-.indicators i.ri-live-fill {
+.indicators i.ri-live-line {
     color: red;
 }
 
@@ -54,15 +54,20 @@
 
 <div id="flsliders">
     <div class="panel">
-        <div class="panel-heading">Sliders</div>
+        <div class="menu">
+            <i class="ri-list-unordered ri-2x" title="Todos"></i>
+            <i class="ri-folder-user-line ri-2x" title="Creados por mi"></i>
+            <i class="ri-heart-line ri-2x" title="Favoritos"></i>
+        </div>
         <div class="panel-body">
             <div class="row">
                 {foreach from=$sliders item=slider}
                 <div id="slider-{$slider.id_slider}" class="sliders col-sm-3 col-md-3">
                     <div class="thumbnail">
                         <div class="text-right indicators">
-                            <i class="ri-live-fill ri-2x"></i>
+                            <i class="ri-live-line ri-2x"></i>
                             <i class="ri-time-line ri-2x"></i>
+                            <i class="ri-heart-line ri-2x" title="Favoritos"></i>
                         </div>
                         <a href="{$ajaxUrlFLSlider}&edit={$slider.id_slider}">
                             <div class="content">
