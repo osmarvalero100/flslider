@@ -1,62 +1,100 @@
 {include file="./partials/modal/_loading.tpl"}
 
+<style>
+.sliders .thumbnail {
+    background-image: linear-gradient(to top, #009bcd, #00a4d3, #00add9, #00b7df, #00c0e4) !important;
+    border: none;
+}
+.sliders .content p {
+    color: white;
+    font-size: 48px; 
+}
+.sliders h3 {
+    font-size: 20px !important;
+}
+.sliders .content p {
+    color: white;
+    font-size: 48px; 
+}
+.sliders .options i {
+    color: white;
+    cursor: pointer;
+    margin-top: -10px;
+}
+.sliders .options i:hover {
+    opacity: .8;
+    color: gray;
+}
+
+.sliders .options {
+  margin-top: -10px
+}
+#flsliders .add .thumbnail,
+#flsliders .import .thumbnail {
+  height: 167px
+}
+#flsliders .import .thumbnail img {
+  height: 70%;
+  margin-bottom: 20px;
+}
+#flsliders .add .thumbnail img {
+  height: 60%;
+  margin-top: 10px;
+  margin-bottom: 26px;
+}
+.indicators {
+    position: absolute;
+    width: 90%;
+}
+.indicators i.ri-live-fill {
+    color: red;
+}
+
+</style>
+
 <div id="flsliders">
-    <div class="panel panel-primary">
+    <div class="panel">
         <div class="panel-heading">Sliders</div>
         <div class="panel-body">
             <div class="row">
                 {foreach from=$sliders item=slider}
-                <div id="slider-{$slider.id_slider}" class="col-sm-3 col-md-3">
+                <div id="slider-{$slider.id_slider}" class="sliders col-sm-3 col-md-3">
                     <div class="thumbnail">
+                        <div class="text-right indicators">
+                            <i class="ri-live-fill ri-2x"></i>
+                            <i class="ri-time-line ri-2x"></i>
+                        </div>
                         <a href="{$ajaxUrlFLSlider}&edit={$slider.id_slider}">
-                            <img src="/modules/flslider/views/img/cover.png" alt="{$slider.name}">
-                        </a>
-                        <div class="caption text-center">
-                            <h3>{$slider.name}</h3>
-                            <div class="btn-group dropup">
-                                <a href="{$ajaxUrlFLSlider}&edit={$slider.id_slider}" title="Editar" class="btn btn-primary">
-                                    <i class="icon-edit"></i>
-                                </a>
-                                <button type="button" title="Duplicar" class="btn btn-primary">
-                                    <i class="icon-copy"></i>
-                                </button>
-                                <button onclick="removeSlider({$slider.id_slider})" type="button" title="Eliminar" class="btn btn-primary">
-                                    <i class="icon-trash"></i>
-                                </button>
-                                <div class="btn-group dropup">
-                                    <button type="button" title="Más Opciones" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-code"></i> <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Exportar</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">
-                                            {if $slider.active == 1}
-                                                Desactivar
-                                            {else}
-                                                Activar
-                                            {/if}
-                                        </a></li>
-                                    </ul>
+                            <div class="content">
+                                <p>#{$slider.id_slider}</p>
+                                <div class="caption">
+                                    <h3>{$slider.name}</h3>
                                 </div>
                             </div>
+                        </a>
+                        <div class="text-center options">
+                            <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
+                            <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
+                            {if $slider.active == 1}
+                                <i class="ri-check-line ri-2x" title="Despublicar"></i>
+                            {else}
+                                <i class="ri-close-line ri-2x" title="Publicar"></i>
+                            {/if}
+                            <i class="ri-delete-bin-line ri-2x" title="Eliminar"></i>
                         </div>
                     </div>
                 </div>
                 {/foreach}
 
-                <div class="col-sm-3 col-md-3 slider-bad" style="cursor: pointer;">
+                <div class="col-sm-3 col-md-3 import" style="cursor: pointer;">
                     <div class="thumbnail text-center">
-                        <br>
                         <img height="140px" width="auto" src="/modules/flslider/views/img/dw.png">
-                        <br><br>
                         <h3>Importar Slider</h3>
                     </div>
                 </div>
-                <div id="add" class="col-sm-3 col-md-3 slider-bad" style="cursor: pointer;">
+                <div id="add" class="col-sm-3 col-md-3 add" style="cursor: pointer;">
                     <div class="thumbnail text-center">
-                        <br>
                         <img height="140px" width="auto" src="/modules/flslider/views/img/add1.png">
-                        <br><br>
                         <h3>Crear Slider</h3>
                     </div>
                 </div>
@@ -91,6 +129,7 @@
 
 
 {* ICONS BACK *}
+{*
 <style>
 .back-icons i {
   width: 48px;
@@ -153,3 +192,4 @@
 <i class="process-icon-upload"></i>
 </div>
 
+*}
