@@ -1,6 +1,9 @@
 {include file="./partials/modal/_loading.tpl"}
 
 <style>
+i {
+    cursor: pointer;
+}
 .sliders .thumbnail {
     background-image: linear-gradient(to top, #009bcd, #00a4d3, #00add9, #00b7df, #00c0e4) !important;
     border: none;
@@ -18,7 +21,6 @@
 }
 .sliders .options i {
     color: white;
-    cursor: pointer;
     margin-top: -10px;
 }
 .sliders .options i:hover {
@@ -91,13 +93,13 @@
                 </div>
                 {/foreach}
 
-                <div class="col-sm-3 col-md-3 import" style="cursor: pointer;">
+                <div class="col-sm-3 col-md-3 import">
                     <div class="thumbnail text-center">
                         <img height="140px" width="auto" src="/modules/flslider/views/img/dw.png">
                         <h3>Importar Slider</h3>
                     </div>
                 </div>
-                <div id="add" class="col-sm-3 col-md-3 add" style="cursor: pointer;">
+                <div id="add" class="col-sm-3 col-md-3 add">
                     <div class="thumbnail text-center">
                         <img height="140px" width="auto" src="/modules/flslider/views/img/add1.png">
                         <h3>Crear Slider</h3>
