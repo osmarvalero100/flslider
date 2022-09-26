@@ -50,6 +50,9 @@ class Slider {
         });
     }
 
+    static async getByAll() {
+        return await fetch(this.getUrlAjaxController('getAll'));
+    }
     static async getById(id) {
         return await fetch(this.getUrlAjaxController('getById') + '&' + new URLSearchParams({
             id: id

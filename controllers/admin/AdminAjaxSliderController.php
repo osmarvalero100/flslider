@@ -117,5 +117,15 @@ class AdminAjaxSliderController extends ModuleAdminController
         $slider->active = (bool) $slider->active;
         $this->ajaxDie(json_encode($slider)); 
     }
+
+    public function ajaxProcessGetAll() {
+        $sliders = Slider::getAll();
+
+        if (empty($sliders)) {
+            http_response_code(404);
+            $this->ajaxDie(json_encode(['errors' => 'Sliders Not Found']));
+        }
+        $this->ajaxDie(json_encode($sliders)); 
+    }
     
 }

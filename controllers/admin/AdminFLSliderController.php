@@ -51,10 +51,12 @@ class AdminFLSliderController extends ModuleAdminController {
         $this->addJS('https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js');
 
         $js_path = _MODULE_DIR_ . $this->module->name.'/views/js';
+        $flSlider = Context::getContext()->link->getAdminLink('AdminFLSlider');
         $ajaxUrlSlider = Context::getContext()->link->getAdminLink('AdminAjaxSlider');
         $ajaxUrlSlide = Context::getContext()->link->getAdminLink('AdminAjaxSlide');
         $ajaxUrlSlideObjects = Context::getContext()->link->getAdminLink('AdminAjaxSlideObjects');
         Media::addJsDef([
+            'flSlider' => $flSlider,
             'ajaxUrlSlider' => $ajaxUrlSlider,
             'ajaxUrlSlide' => $ajaxUrlSlide,
             'ajaxUrlSlideObjects' => $ajaxUrlSlideObjects,
@@ -68,6 +70,7 @@ class AdminFLSliderController extends ModuleAdminController {
         $this->addJS($js_path . '/admin/slide.js');
         $this->addJS($js_path . '/admin/slide-device.js');
         $this->addJS($js_path . '/admin/slide-objects.js');
+        $this->addJS($js_path . '/admin/list-sliders.js');
         if (Tools::getValue('edit') != null) {
             $this->addJS($js_path . '/admin/edit-slider.js');
         }

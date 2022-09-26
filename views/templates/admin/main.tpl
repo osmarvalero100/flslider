@@ -54,7 +54,7 @@ i {
 
 </style>
 
-<div id="flsliders">
+<div id="flsliders" x-data="listSliders()" x-init="await start()">
     <div class="panel">
         <div class="menu">
             <i class="ri-list-unordered ri-2x" title="Todos"></i>
@@ -63,35 +63,36 @@ i {
         </div>
         <div class="panel-body">
             <div class="row">
-                {foreach from=$sliders item=slider}
-                <div id="slider-{$slider.id_slider}" class="sliders col-sm-3 col-md-3">
-                    <div class="thumbnail">
-                        <div class="text-right indicators">
-                            <i class="ri-live-line ri-2x"></i>
-                            <i class="ri-time-line ri-2x"></i>
-                            <i class="ri-heart-line ri-2x" title="Favoritos"></i>
-                        </div>
-                        <a href="{$ajaxUrlFLSlider}&edit={$slider.id_slider}">
-                            <div class="content">
-                                <p>#{$slider.id_slider}</p>
-                                <div class="caption">
-                                    <h3>{$slider.name}</h3>
-                                </div>
+                {literal}
+                <template x-for="slider in $store.sls.sliders">
+                    <div class="sliders col-sm-3 col-md-3">
+                        <div class="thumbnail">
+                            <div class="text-right indicators">
+                                <i class="ri-live-line ri-2x"></i>
+                                <i class="ri-time-line ri-2x"></i>
+                                <i class="ri-heart-line ri-2x" title="Favoritos"></i>
                             </div>
-                        </a>
-                        <div class="text-center options">
-                            <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
-                            <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
-                            {if $slider.active == 1}
-                                <i class="ri-check-line ri-2x" title="Despublicar"></i>
-                            {else}
-                                <i class="ri-close-line ri-2x" title="Publicar"></i>
-                            {/if}
-                            <i class="ri-delete-bin-line ri-2x" title="Eliminar"></i>
+                            <a x-bind:href="flSlider+'&edit='+slider.id_slider">
+                                <div class="content" x-data="{id_slider: '#'+slider.id_slider}">
+                                    <p>#<span x-text="slider.id_slider"></span></p>
+                                    
+                                    <div class="caption">
+                                        <h3 x-text="slider.name"></h3>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="text-center options">
+                                <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
+                                <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
+                                <i class="ri-2x"
+                                    :class="slider.active == 0 ? 'ri-close-line':'ri-check-line'"
+                                    :title="slider.active == 0 ? 'Habilitar':'Deshabilitar'"></i>
+                                <i class="ri-delete-bin-line ri-2x" title="Eliminar"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/foreach}
+                </template>
+                {/literal}
 
                 <div class="col-sm-3 col-md-3 import">
                     <div class="thumbnail text-center">
@@ -105,6 +106,7 @@ i {
                         <h3>Crear Slider</h3>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
