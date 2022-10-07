@@ -82,7 +82,7 @@ class Slider {
     static async remove(data) {
         return await fetch(this.getUrlAjaxController('delete'), {
             method: 'POST',
-            body: data
+            body: JSON.stringify(data),
         });
     }
 

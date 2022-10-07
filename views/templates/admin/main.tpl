@@ -87,7 +87,7 @@ i {
                                 <i class="ri-2x"
                                     :class="slider.active == 0 ? 'ri-close-line':'ri-check-line'"
                                     :title="slider.active == 0 ? 'Habilitar':'Deshabilitar'"></i>
-                                <i class="ri-delete-bin-line ri-2x" title="Eliminar"></i>
+                                <i class="ri-delete-bin-line ri-2x" @click="delSlider(slider.id_slider)" title="Eliminar"></i>
                             </div>
                         </div>
                     </div>
