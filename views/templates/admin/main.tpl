@@ -87,6 +87,7 @@ i,
                                 <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
                                 <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
                                 <i class="ri-2x"
+                                    @click="changeStatus(slider.id_slider)"
                                     :class="slider.active == 0 ? 'ri-close-line':'ri-check-line'"
                                     :title="slider.active == 0 ? 'Habilitar':'Deshabilitar'"></i>
                                 <i class="ri-delete-bin-line ri-2x" @click="delSlider(slider.id_slider)" title="Eliminar"></i>

@@ -40,6 +40,24 @@ function listSliders() {
                 FlCuteToast({type: 'error', title: 'error', message: 'Error al crear el slider'});
             }
         },
+        changeStatus: async function(slideId) {
+            const res = await Slider.changeStatus({id: slideId});
+            if (res.status != 204) {
+                const data = await res.json();
+                let message = 'No fue posible cambiar el estado.';
+                if (data.hasOwnProperty('error'))
+                    message = data.error;
+                FlCuteToast({type: 'error', title: 'Error', message: message});
+            } else {
+                const slider = Alpine.store("sls").sliders.find(el => el.id_slider == slideId);
+                if (slider.active == 0) {
+                    slider.active = 1;
+                } else {
+                    slider.active = 0;
+                }
+                FlCuteToast({type: 'success', title: '¡Éxito!', message: 'Cambio de estado realizado.'});
+            }
+        },
         delSlider: async function(idSlider) {
             FlCuteAlert({
                 title: `#${idSlider}`,
