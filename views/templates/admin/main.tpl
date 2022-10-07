@@ -1,7 +1,9 @@
 {include file="./partials/modal/_loading.tpl"}
 
 <style>
-i {
+i,
+.add,
+.import {
     cursor: pointer;
 }
 .sliders .thumbnail {
@@ -110,6 +112,7 @@ i {
             </div>
         </div>
     </div>
+    {include file='./add.tpl'}
 </div>
 
 <style>
@@ -117,88 +120,3 @@ i {
     padding-left: 10px;
 }
 </style>
-
-{include file='./add.tpl'}
-
-{literal}
-    <script>
-        async function removeSlider(id) {
-            if (confirm("¿Estás seguro de eleiminar este slider?") == true) {
-                const res = await Slider.remove(JSON.stringify({id: id}));
-                if (res.status == 400 || res.status == 404) {
-                    const data = await res.json();
-                    alert(data.errors);
-                }
-                if (res.status == 204)
-                    document.getElementById('slider-' + id).remove();
-            }
-        }
-    </script> 
-{/literal}
-
-
-{* ICONS BACK *}
-{*
-<style>
-.back-icons i {
-  width: 48px;
-  display: inline-block;
-}
-</style>
-<div class="back-icons">
-<i class="process-icon-anchor"></i>
-<i class="process-icon-back"></i>
-<i class="process-icon-cancel"></i>
-<i class="process-icon-cart"></i>
-<i class="process-icon-close"></i>
-<i class="process-icon-cogs"></i>
-<i class="process-icon-compress"></i>
-<i class="process-icon-configure"></i>
-<i class="process-icon-database"></i>
-<i class="process-icon-delete"></i>
-<i class="process-icon-download"></i>
-<i class="process-icon-download-alt"></i>
-<i class="process-icon-dropdown"></i>
-<i class="process-icon-duplicate"></i>
-<i class="process-icon-edit"></i>
-<i class="process-icon-envelope"></i>
-<i class="process-icon-eraser"></i>
-<i class="process-icon-expand"></i>
-<i class="process-icon-export"></i>
-<i class="process-icon-flag"></i>
-<i class="process-icon-help"></i>
-<i class="process-icon-help-new"></i>
-<i class="process-icon-loading"></i>
-<i class="process-icon-mail-reply"></i>
-<i class="process-icon-minus"></i>
-<i class="process-icon-modules-list"></i>
-<i class="process-icon-new"></i>
-<i class="process-icon-new-module"></i>
-<i class="process-icon-new-url"></i>
-<i class="process-icon-newAttributes"></i>
-<i class="process-icon-off"></i>
-<i class="process-icon-ok"></i>
-<i class="process-icon-partial_refund"></i>
-<i class="process-icon-payment"></i>
-<i class="process-icon-plus"></i>
-<i class="process-icon-power"></i>
-<i class="process-icon-preview"></i>
-<i class="process-icon-previewURL"></i>
-<i class="process-icon-refresh"></i>
-<i class="process-icon-reset"></i>
-<i class="process-icon-save"></i>
-<i class="process-icon-save-and-preview"></i>
-<i class="process-icon-save-and-stay"></i>
-<i class="process-icon-save-date"></i>
-<i class="process-icon-save-status"></i>
-<i class="process-icon-stats"></i>
-<i class="process-icon-terminal"></i>
-<i class="process-icon-themes"></i>
-<i class="process-icon-toggle-off"></i>
-<i class="process-icon-toggle-on"></i>
-<i class="process-icon-uninstall"></i>
-<i class="process-icon-update"></i>
-<i class="process-icon-upload"></i>
-</div>
-
-*}
