@@ -24,7 +24,7 @@ class FLSHelper {
     }
     public static function allowImageExt()
     {
-        return ['png', 'jpg', 'jpeg', 'gif'];
+        return ['png', 'jpg', 'jpeg', 'gif', 'webp'];
     }
 
     public static function uploadImage($image, $idSlider, $convertToWebp = true) {
@@ -32,24 +32,24 @@ class FLSHelper {
         $extImg = str_replace('image/', '', $image['type']);
         $name = $name = uniqid();
         $folderSlider = FLSHelper::getPathImages().$idSlider;
-
-        try {
-            if (!is_dir($folderSlider))
-                mkdir( $folderSlider, 0777, true );
-        } catch (\Throwable $th) {
-            die(json_encode(['errors' => 'Error creando directorio de slider. Permiso denegado.']));
+        
+        if (!is_dir($folderSlider)) {
+            if (!mkdir( $folderSlider, 0777, true )) {//0755
+                $data['errors'][] = 'Por favor asignar permisos de lectura y escritura en la ruta: '.FLSHelper::getPathImages();
+                return $data;
+            }
         }
+        
 
         $pathImage = $folderSlider.'/'.$name.'.'.$extImg;
         if(move_uploaded_file($_FILES['img_object']['tmp_name'], $pathImage)) {
             $data['src'] = $name.'.'.$extImg;
             if ($convertToWebp) {
-                if (FLSHelper::imageCreateWebp($pathImage)) {
-                    $data['srcset'] = $name.'.webp';
-                }
+                FLSHelper::imageCreateWebp($pathImage);
             }
+            $data['srcset'] = $name.'.webp';
         } else {
-            $data['errors'] = ['upload_image'=>false];
+            $data['errors'][] = 'Por favor asignar permisos de lectura y escritura en la ruta: '.$pathImage;
         }
 
         return $data;

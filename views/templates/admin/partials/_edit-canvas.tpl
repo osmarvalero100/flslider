@@ -46,7 +46,7 @@
 
 <div class="panel fls-canvas">
     <div id="tool-bar" class="row">
-        <input @change="uploadImage(event)" style="display: none;" type="file" id="uploadImg" accept="image/png, image/gif, image/jpeg">
+        <input @change="uploadImage(event)" style="display: none;" type="file" id="uploadImg" accept="image/png, image/gif, image/jpeg, image/webp">
         <div class="col-sd-2 col-md-4">
             <i @click="document.getElementById('uploadImg').click()" id="a-img" class="ri-image-2-line ri-2x" title="Agregar imagen"></i>
             <i id="a-text" class="ri-t-box-line ri-2x" title="Agregar texto"></i>

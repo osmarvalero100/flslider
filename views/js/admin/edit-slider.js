@@ -30,14 +30,15 @@ function editSlider() {
             await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
         },
         setCurrentSlide: async function(idSlide) {
+            //await SlideObjects.clearCanvas();
+            Alpine.store("sl").current_slide = new Slide();
             const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
             Alpine.store("sl").current_slide = slide;
             Alpine.store("sl").current_slide.config = false;
-            // await SlideObjects.clearCanvas();
             if (Array.isArray(slide.slideObjects) && slide.slideObjects.length > 0) {
                 //SlideObjects.setAtributesObjects(slide.slideObjects);
                 setTimeout(() => {
-                    SlideObjects.addDraggable(slide.slideObjects);
+                    SlideObjects.addDraggable(Alpine.store("sl").current_slide.slideObjects);
                 }, 500);
             }
         },
@@ -144,7 +145,16 @@ function editSlider() {
             formData.append('img_object', img);
             const resUp = await SlideObjects.uploadImage(formData);
             const dataImg = await resUp.json();
-            await this.createSlideObject('img', {props: dataImg})
+
+            if (dataImg.hasOwnProperty('errors')) {
+                let message = '';
+                dataImg.errors.forEach(er => {
+                    message += er + '<br>';
+                });
+                FlCuteToast({type: 'error', title: 'Error', message: message, timer: 10000});
+            } else {
+                await this.createSlideObject('img', {props: dataImg})
+            }
         },
         createSlideObject: async function(type, data={}) {
             const defaults = {
@@ -169,7 +179,10 @@ function editSlider() {
             const newSlideObject = await res.json();
             newSlideObject.attributes = JSON.parse(newSlideObject.attributes)
             Alpine.store("sl").current_slide.slideObjects.push(newSlideObject);
-            SlideObjects.pushInCanvas([newSlideObject]);
+            //SlideObjects.pushInCanvas([newSlideObject]);
+            setTimeout(() => {
+                SlideObjects.addDraggable(Alpine.store("sl").current_slide.slideObjects);
+            }, 500);
         },
         jsonParseSlider: async function(slider) {
             // Settings Slider

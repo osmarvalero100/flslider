@@ -69,10 +69,13 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
                 $this->ajaxDie(json_encode(['errors' => 'Image extension invalid']));
             }
 
-            $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider);
+            $convertToWebp = ($_FILES['img_object']['type'] == '.webp') ? false : true;
+
+            $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider, $convertToWebp);
+            //var_dump($uploadImage['errors']);
             if (!empty($uploadImage['errors'])) {
                 http_response_code(400);
-                $this->ajaxDie(['errors' => $uploadImage['errors']]);
+                $this->ajaxDie(json_encode(['errors' => $uploadImage['errors']]));
             }
 
             $this->ajaxDie(json_encode($uploadImage));

@@ -122,7 +122,7 @@ class SlideObjects {
     static addDraggable(objects) {
         objects.forEach(object => {
             const element = document.getElementById(object.id_slide_object || object.id);
-            console.log(element)
+            //console.log(element)
             $(element).draggable({
                 containment: "#fl-canvas",
                 drag: function() {
