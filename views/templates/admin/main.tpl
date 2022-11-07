@@ -67,33 +67,35 @@ i,
             <div class="row">
                 {literal}
                 <template x-for="slider in $store.sls.sliders">
-                    <div class="sliders col-sm-3 col-md-3">
-                        <div class="thumbnail">
-                            <div class="text-right indicators">
-                                <i class="ri-live-line ri-2x"></i>
-                                <i class="ri-time-line ri-2x"></i>
-                                <i class="ri-heart-line ri-2x" title="Favoritos"></i>
-                            </div>
-                            <a x-bind:href="flSlider+'&edit='+slider.id_slider">
-                                <div class="content" x-data="{id_slider: '#'+slider.id_slider}">
-                                    <p>#<span x-text="slider.id_slider"></span></p>
-                                    
-                                    <div class="caption">
-                                        <h3 x-text="slider.name"></h3>
-                                    </div>
+                    <template x-if="slider.id_slider">
+                        <div class="sliders col-sm-3 col-md-3">
+                            <div class="thumbnail">
+                                <div class="text-right indicators">
+                                    <i class="ri-live-line ri-2x"></i>
+                                    <i class="ri-time-line ri-2x"></i>
+                                    <i class="ri-heart-line ri-2x" title="Favoritos"></i>
                                 </div>
-                            </a>
-                            <div class="text-center options">
-                                <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
-                                <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
-                                <i class="ri-2x"
-                                    @click="changeStatus(slider.id_slider)"
-                                    :class="slider.active == 0 ? 'ri-close-line':'ri-check-line'"
-                                    :title="slider.active == 0 ? 'Habilitar':'Deshabilitar'"></i>
-                                <i class="ri-delete-bin-line ri-2x" @click="delSlider(slider.id_slider)" title="Eliminar"></i>
+                                <a x-bind:href="flSlider+'&edit='+slider.id_slider">
+                                    <div class="content" x-data="{id_slider: '#'+slider.id_slider}">
+                                        <p>#<span x-text="slider.id_slider"></span></p>
+                                        
+                                        <div class="caption">
+                                            <h3 x-text="slider.name"></h3>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="text-center options">
+                                    <i class="ri-file-copy-2-line ri-2x" title="Duplicar"></i>
+                                    <i class="ri-arrow-down-line ri-2x" title="Exportar"></i>
+                                    <i class="ri-2x"
+                                        @click="changeStatus(slider.id_slider)"
+                                        :class="slider.active == 0 ? 'ri-close-line':'ri-check-line'"
+                                        :title="slider.active == 0 ? 'Habilitar':'Deshabilitar'"></i>
+                                    <i class="ri-delete-bin-line ri-2x" @click="delSlider(slider.id_slider)" title="Eliminar"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
                 </template>
                 {/literal}
 
