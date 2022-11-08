@@ -93,9 +93,8 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
             http_response_code(404);
             $this->ajaxDie(json_encode(['errors' => 'SlideObject '.$data->id.' Not Found']));
         }
-        var_dump($slideObject->getAttributes());
         
-        //$slideObject->remove();
+        $slideObject->delete();
         http_response_code(204);
         exit;
     }

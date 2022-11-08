@@ -20,10 +20,10 @@
     margin-left: 1px;
     border-radius: 5px;
 }
-#tool-bar i {
+i {
   cursor: pointer;
 }
-#tool-bar i:hover {
+i:hover {
   opacity: .6;
 }
 #fl-canvas {
@@ -41,6 +41,14 @@
 }
 #fl-canvas > :hover {
   border: 1px dotted #52b3d8;
+}
+.objects-list {
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.object {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    padding-top: 5px;
 }
 </style>
 
@@ -74,33 +82,18 @@
         </div>
         <p class="text-center">Slider ( <span x-text="$store.sl.slider.name"></span> ):  W <small>1350px H 270px</small> </p>
         <hr>
-        <code>
-            <p>Slider: <span x-text="$store.sl.slider.name"></span></p>
-            <template x-for="slide in $store.sl.slider.slides">
-                <div style="width:33%;display:inline-block;">
-                    <p>Device: <span x-text="slide.device"></span></p>
-                </div>
-            </template>
-        </code>
         <div class="row">
-            <div class="col-md-3">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <span class="badge">14</span>
-                        <span class="badge"><i id="a-link" class="ri-link"></i></span>
-                        Cras justo odio
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">14</span>
-                        <span class="badge"><i id="a-link" class="ri-link"></i></span>
-                        Cras justo odio
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">14</span>
-                        <span class="badge"><i id="a-link" class="ri-link"></i></span>
-                        Cras justo odio
-                    </li>
-                </ul>
+            <div class="col-md-3 objects-list">
+                <template x-for="object in $store.sl.current_slide.slideObjects">
+                    <div class="object row">
+                        <div class="col-md-6">
+                            <p x-text="object.id"></p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <i class="ri-close-line ri-xl" @click="delSlideObject(object.id)" title="Eliminar"></i>
+                        </div>
+                    </div>
+                </template>
             </div>
             <div class="col-md-9">
                 <div class="panel panel-default">

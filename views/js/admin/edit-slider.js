@@ -137,6 +137,14 @@ function editSlider() {
                 id_slider: Alpine.store("sl").slider.id
             };
             const res = await SlideObjects.remove(data);
+            if (res.status == 204) {
+                const indexObject = Alpine.store("sl").current_slide.slideObjects.findIndex(object => {
+                    return object.id == idSlideObject;
+                  });
+                Alpine.store("sl").current_slide.slideObjects.splice(indexObject, 1);
+            } else {
+                FlCuteToast({type: 'error', title: 'Error', message: 'No fue posible eliminar el objeto.', timer: 10000});
+            }
         },
         uploadImage: async function(event) {
             const img = event.target.files[0];

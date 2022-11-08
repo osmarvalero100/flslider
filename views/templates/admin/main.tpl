@@ -67,7 +67,7 @@ i,
             <div class="row">
                 {literal}
                 <template x-for="slider in $store.sls.sliders">
-                    <template x-if="slider.id_slider">
+                    <template x-if="slider.id_sliders">
                         <div class="sliders col-sm-3 col-md-3">
                             <div class="thumbnail">
                                 <div class="text-right indicators">
