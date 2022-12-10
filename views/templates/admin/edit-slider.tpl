@@ -1,3 +1,4 @@
+{include file="./loader.tpl"}
 <div id="fls-edit" x-data="editSlider()" x-init="await start()">
     <input type="hidden" id="id_slider" value="{$id_slider}">
     {include file="./settings.tpl"}

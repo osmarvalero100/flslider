@@ -8,6 +8,7 @@ Alpine.store("sl", {
 function editSlider() {
     return {
         start: async function() {
+            showLoader();
             const res = await Slider.getEditById(idSlider);
             const editSlider = await res.json();
             Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
@@ -15,7 +16,8 @@ function editSlider() {
             Alpine.store("sl").slider.config = false;
             await this.setDevice(1);
             //SlideObjects.pushInCanvas(Alpine.store("sl").current_slide.slideObjects);
-            console.log(Alpine.store("sl"))
+            hideLoader();
+            console.log(Alpine.store("sl"));
         },
         getSliderStyles: function(){
             let device = 'desktop';
@@ -63,6 +65,7 @@ function editSlider() {
             }
         },
         saveConfig: async function(){
+            showLoader();
             if (Alpine.store("sl").slider.config) {
                 Alpine.store("sl").slider.date_start = document.getElementById('s-from').value;
                 Alpine.store("sl").slider.date_end = document.getElementById('s-to').value;
@@ -75,6 +78,7 @@ function editSlider() {
                 const res = await Slide.save(Alpine.store("sl").current_slide);
                 res.status == 200 ? Alpine.store("sl").current_slide.config = false : alert('Error al guardar el slide');
             }
+            hideLoader();
         },
         createSlide: async function() {
             const defaults = [];
@@ -86,10 +90,12 @@ function editSlider() {
                 settings: JSON.stringify(defaults),
             }
 
+            showLoader();
             const res = await Slide.save(slide);
             const newSlide = await res.json();
             newSlide.settings = JSON.parse(newSlide.settings);
             Alpine.store("sl").current_device.slides.push(newSlide);
+            hideLoader();
         },
         showSlideSettings: function(){
             setTimeout(() => {
@@ -97,6 +103,7 @@ function editSlider() {
             }, 400);
         },
         changeStatus: async function(slideId) {
+            showLoader();
             const res = await Slide.changeStatus({id: slideId});
             if (res.status == 400) {
                 alert(res.error);
@@ -111,8 +118,10 @@ function editSlider() {
                     }
                 });
             }
+            hideLoader();
         },
         delSlide: async function(idSlide) {
+            showLoader();
             const data = {
                 id: idSlide,
                // id_device: Alpine.store("sl").current_device.id
@@ -123,6 +132,7 @@ function editSlider() {
                 const index = Alpine.store("sl").current_device.slides.findIndex(sl => sl.id == idSlide);
                 Alpine.store("sl").current_device.slides.splice(index, 1);
             }
+            hideLoader();
             // if (res.status == 204) {
             //     await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
             //     const device = Alpine.store('sl').current_device;
@@ -132,6 +142,7 @@ function editSlider() {
             //const delSlide = await res.json();
         },
         delSlideObject: async function(idSlideObject) {
+            showLoader();
             const data = {
                 id: idSlideObject,
                 id_slider: Alpine.store("sl").slider.id
@@ -145,14 +156,17 @@ function editSlider() {
             } else {
                 FlCuteToast({type: 'error', title: 'Error', message: 'No fue posible eliminar el objeto.', timer: 10000});
             }
+            hideLoader();
         },
         uploadImage: async function(event) {
             const img = event.target.files[0];
             const formData = new FormData();
             formData.append('id_slider', Alpine.store("sl").slider.id);
             formData.append('img_object', img);
+            showLoader();
             const resUp = await SlideObjects.uploadImage(formData);
             const dataImg = await resUp.json();
+            hideLoader();
 
             if (dataImg.hasOwnProperty('errors')) {
                 let message = '';
@@ -183,8 +197,10 @@ function editSlider() {
                 attributes: JSON.stringify(defaults),
             }
 
+            showLoader();
             const res = await SlideObjects.save(slideObject);
             const newSlideObject = await res.json();
+            hideLoader();
             newSlideObject.attributes = JSON.parse(newSlideObject.attributes)
             Alpine.store("sl").current_slide.slideObjects.push(newSlideObject);
             //SlideObjects.pushInCanvas([newSlideObject]);
