@@ -28,10 +28,13 @@ Alpine.store("sls", {
 function listSliders() {
     return {
         start: async function() {
+            showLoader();
             const res = await Slider.getByAll();
             Alpine.store("sls").sliders = await res.json();
+            hideLoader();
         },
         createSlider: async function() {
+            showLoader();
             const res = await Slider.save(Alpine.store("sls").sliderForm);
             const newSlider = await res.json();
             if (newSlider.hasOwnProperty("id")) {
@@ -39,8 +42,10 @@ function listSliders() {
             } else {
                 FlCuteToast({type: 'error', title: 'error', message: 'Error al crear el slider'});
             }
+            hideLoader();
         },
         changeStatus: async function(slideId) {
+            showLoader();
             const res = await Slider.changeStatus({id: slideId});
             if (res.status != 204) {
                 const data = await res.json();
@@ -57,6 +62,7 @@ function listSliders() {
                 }
                 FlCuteToast({type: 'success', title: '¡Éxito!', message: 'Cambio de estado realizado.'});
             }
+            hideLoader();
         },
         delSlider: async function(idSlider) {
             FlCuteAlert({
@@ -68,6 +74,7 @@ function listSliders() {
             })
             .then(async (willDelete) => {
                 if (willDelete) {
+                    showLoader();
                     const data = {
                         id: idSlider,
                     };
@@ -79,6 +86,7 @@ function listSliders() {
                     } else {
                         FlCuteToast({type: 'error', title: 'Error', message: `No fue posible eliminar el slider.`})
                     }
+                    hideLoader();
                 }
             });
         },

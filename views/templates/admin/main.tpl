@@ -56,6 +56,7 @@ i,
 
 </style>
 
+{include file="./loader.tpl"}
 <div id="flsliders" x-data="listSliders()" x-init="await start()">
     <div class="panel">
         <div class="menu">
@@ -67,7 +68,7 @@ i,
             <div class="row">
                 {literal}
                 <template x-for="slider in $store.sls.sliders">
-                    <template x-if="slider.id_sliders">
+                    <template x-if="slider.id_slider">
                         <div class="sliders col-sm-3 col-md-3">
                             <div class="thumbnail">
                                 <div class="text-right indicators">

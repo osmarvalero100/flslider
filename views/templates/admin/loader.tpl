@@ -5,7 +5,7 @@
   top: 25%;left: 50%;
   width: 6.250em; height: 6.250em;
   animation: rotate 2.4s linear infinite;
-  z-index: 999;
+  z-index: 99999;
   display: none;
 }
 .fls-loader .white { 
