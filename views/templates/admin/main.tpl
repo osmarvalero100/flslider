@@ -61,7 +61,6 @@ i,
 }
 
 </style>
-{include file="./confirm.tpl"}
 {include file="./loader.tpl"}
 <div id="flsliders" x-data="listSliders()" x-init="await start()">
     <div class="panel">
