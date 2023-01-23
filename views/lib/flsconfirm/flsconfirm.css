@@ -1,0 +1,41 @@
+.confirm-delete {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    background: rgb(70, 130, 180);
+    border-radius: 3px;
+    padding: 20px;
+    max-width: 89%;
+    z-index: 9999;
+    text-align: center;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    font-size: 13px;
+}
+.confirm-delete p {
+    color: white;
+    font-size: 16px;
+}
+.btn-actions button {
+    border: none;
+    width: 80px;
+    padding: 4px 2px;
+    border-radius: 2px;
+}
+.btn-actions button:hover {
+    opacity: .8;
+}
+.btn-no {
+    background: lightgray;
+}
+.btn-yes {
+    background: tomato;
+    color:white;
+}
+
+@media (max-width: 600px) {
+    .confirm-delete {
+        top: 35%;
+        left: 7%;
+        max-width: 80%;
+    }
+}
