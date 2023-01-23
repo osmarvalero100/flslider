@@ -8,7 +8,6 @@ Alpine.store("sl", {
 function editSlider() {
     return {
         start: async function() {
-            showLoader();
             const res = await Slider.getEditById(idSlider);
             const editSlider = await res.json();
             Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
@@ -121,25 +120,25 @@ function editSlider() {
             hideLoader();
         },
         delSlide: async function(idSlide) {
-            showLoader();
-            const data = {
-                id: idSlide,
-               // id_device: Alpine.store("sl").current_device.id
-            };
-            const res = await Slide.remove(data);
-            if (res.status == 204) {
-                await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
-                const index = Alpine.store("sl").current_device.slides.findIndex(sl => sl.id == idSlide);
-                Alpine.store("sl").current_device.slides.splice(index, 1);
-            }
-            hideLoader();
-            // if (res.status == 204) {
-            //     await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
-            //     const device = Alpine.store('sl').current_device;
-            //     const slidesDevice = Alpine.store('sl').slider.devices.find(d => d.id = device.id);
-            //     const slide = slidesDevice.slides.find(slide => slide.id == slideId);
-            // }
-            //const delSlide = await res.json();
+            const slideName = document.querySelector(`[data-slide-id='${idSlide}']`).querySelector("h3").textContent;
+            FlsConfirm({
+                message: `¿Realmente quieres eliminar el slide <strong> ${slideName} </strong> de forma permanente?`
+            }).then(async (willDelete) => {
+                if (willDelete) {
+                    showLoader();
+                    const data = {
+                        id: idSlide,
+                    };
+                    const res = await Slide.remove(data);
+                    if (res.status == 204) {
+                        await this.setCurrentSlide(Alpine.store("sl").current_device.slides[0].id);
+                        const index = Alpine.store("sl").current_device.slides.findIndex(sl => sl.id == idSlide);
+                        Alpine.store("sl").current_device.slides.splice(index, 1);
+                    }
+                    hideLoader();
+                }
+            });
+            
         },
         delSlideObject: async function(idSlideObject) {
             showLoader();

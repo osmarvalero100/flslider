@@ -28,7 +28,6 @@ Alpine.store("sls", {
 function listSliders() {
     return {
         start: async function() {
-            showLoader();
             const res = await Slider.getByAll();
             Alpine.store("sls").sliders = await res.json();
             hideLoader();
@@ -65,14 +64,10 @@ function listSliders() {
             hideLoader();
         },
         delSlider: async function(idSlider) {
-            FlCuteAlert({
-                title: `#${idSlider}`,
-                message: "¿Está seguro, que quiere eliminar este slider?",
-                type: "question",
-                confirmText: "Eliminar",
-                cancelText: "Cancelar"
-            })
-            .then(async (willDelete) => {
+            const slider = Alpine.store("sls").sliders.find(el => el.id_slider == idSlider);
+            FlsConfirm({
+                message: `¿Realmente quieres eliminar el slider <strong> #${slider.id_slider} - ${slider.name}</strong> de forma permanente?`
+            }).then(async (willDelete) => {
                 if (willDelete) {
                     showLoader();
                     const data = {
@@ -82,9 +77,9 @@ function listSliders() {
                     if (res.status == 204) {
                         const index = Alpine.store("sls").sliders.findIndex(sls => sls.id == idSlider);
                         Alpine.store("sls").sliders.splice(index, 1);
-                        FlCuteToast({type: 'success', title: '¡Éxito!', message: `Slider #${idSlider} eliminado.`})
+                        FlsToast({type: 'success', title: '¡Éxito!', message: `Slider #${idSlider} eliminado.`})
                     } else {
-                        FlCuteToast({type: 'error', title: 'Error', message: `No fue posible eliminar el slider.`})
+                        FlsToast({type: 'error', title: 'Error', message: `No fue posible eliminar el slider.`})
                     }
                     hideLoader();
                 }

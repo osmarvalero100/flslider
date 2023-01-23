@@ -237,9 +237,11 @@ class FlSlider extends Module
             $this->context->controller->addJS($this->_path.'views/js/back.js');
             $this->context->controller->addCSS($this->_path.'views/css/back.css');
         }
+        $this->context->controller->addJS($this->_path.'views/lib/flsconfirm/flsconfirm.js');
+        $this->context->controller->addCSS($this->_path.'views/lib/flsconfirm/flsconfirm.css');
 
-        $this->context->controller->addCSS($this->_path.'views/lib/cute-alert/style.css');
-        $this->context->controller->addJS($this->_path.'views/lib/cute-alert/fl-cute-alert.js');
+        $this->context->controller->addCSS($this->_path.'views/lib/flstoast/flstoast.css');
+        $this->context->controller->addJS($this->_path.'views/lib/flstoast/flstoast.js');
         
         if (Module::isEnabled('pspagebuilder')) {
             $this->context->controller->addCSS($this->_path.'integrations/pspagebuilder/styles.css');

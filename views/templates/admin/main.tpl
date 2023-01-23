@@ -38,8 +38,14 @@ i,
   height: 167px
 }
 #flsliders .import .thumbnail img {
-  height: 70%;
-  margin-bottom: 20px;
+    height: 64%;
+    margin-bottom: 16px;
+    margin-top: 14px;
+    transform: rotate(210deg);
+}
+.add:hover,
+.import:hover {
+   opacity: .8;
 }
 #flsliders .add .thumbnail img {
   height: 60%;
@@ -55,7 +61,7 @@ i,
 }
 
 </style>
-
+{include file="./confirm.tpl"}
 {include file="./loader.tpl"}
 <div id="flsliders" x-data="listSliders()" x-init="await start()">
     <div class="panel">
@@ -66,6 +72,18 @@ i,
         </div>
         <div class="panel-body">
             <div class="row">
+                <div class="col-sm-3 col-md-3 import">
+                <div class="thumbnail text-center">
+                    <img height="140px" width="auto" src="/modules/flslider/views/img/dw.png">
+                    <h3>Importar Slider</h3>
+                </div>
+            </div>
+            <div id="add" class="col-sm-3 col-md-3 add">
+                <div class="thumbnail text-center">
+                    <img height="140px" width="auto" src="/modules/flslider/views/img/add1.png">
+                    <h3>Crear Slider</h3>
+                </div>
+            </div>
                 {literal}
                 <template x-for="slider in $store.sls.sliders">
                     <template x-if="slider.id_slider">
@@ -99,19 +117,6 @@ i,
                     </template>
                 </template>
                 {/literal}
-
-                <div class="col-sm-3 col-md-3 import">
-                    <div class="thumbnail text-center">
-                        <img height="140px" width="auto" src="/modules/flslider/views/img/dw.png">
-                        <h3>Importar Slider</h3>
-                    </div>
-                </div>
-                <div id="add" class="col-sm-3 col-md-3 add">
-                    <div class="thumbnail text-center">
-                        <img height="140px" width="auto" src="/modules/flslider/views/img/add1.png">
-                        <h3>Crear Slider</h3>
-                    </div>
-                </div>
 
             </div>
         </div>

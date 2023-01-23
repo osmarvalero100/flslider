@@ -29,6 +29,9 @@
     margin-top: 10px;
     margin-bottom: 6px;
 }
+.slide {
+    margin-top: 5px;
+}
 </style>
 <div class="panel fls-slides">
     <div class="panel-body">
@@ -56,7 +59,7 @@
                                             :class="slide.date_end != null && (new Date() > new Date(slide.date_end)) ? 'ri-timer-line':'ri-time-line'"
                                             style="
                                                 position: absolute;
-                                                right: 12px;
+                                                right: 30px;
                                                 top: 7px;"
                                             :title="()=>{
                                                 const start = slide.date_start != null && slide.date_start.substring(0,4) != '0000' ? 'Desde: '+slide.date_start : '';
@@ -65,6 +68,11 @@
                                                 }">
                                         </i>
                                     </template>
+                                    <i class="ri-lg ri-arrow-down-line" style="
+                                        position: absolute;
+                                        right: 12px;
+                                        top: 7px;" title="Exportar">
+                                    </i>
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">
@@ -115,6 +123,13 @@
                     </div>
                 </div>
                 {/foreach*}
+                <div @click="alert('Pendiente por implementar')" id="addSlide" class="col-sm-3 col-md-2 slide" style="cursor: pointer;">
+                    <div class="thumbnail text-center">
+                        <img style="transform: rotate(210deg);" alt="Nuevo Slide" src="/modules/flslider/views/img/dw.png">
+                        <br>
+                        <h3>Importar Slide</h3>
+                    </div>
+                </div>
 
                 <div @click="createSlide()" id="addSlide" class="col-sm-3 col-md-2 slide" style="cursor: pointer;">
                     <div class="thumbnail text-center">
