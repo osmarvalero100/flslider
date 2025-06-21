@@ -80,10 +80,15 @@ i:hover {
                 {include file="./_edit-slide-objects.tpl"}
             </div>
         </div>
-        <p class="text-center">Slider ( <span x-text="$store.sl.slider.name"></span> ):  W <small>1350px H 270px</small> </p>
+        <p class="text-center">Slider: <span x-text="$store.sl.slider.name"></span> </p>
         <hr>
         <div class="row">
             <div class="col-md-3 objects-list">
+                <div class="object row">
+                    <div class="col-md-6">
+                        <p>Slide background</p>
+                    </div>
+                </div>
                 <template x-for="object in $store.sl.current_slide.slideObjects">
                     <div class="object row">
                         <div class="col-md-6">

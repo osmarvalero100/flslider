@@ -57,7 +57,7 @@ class FlSlider extends Module
         parent::__construct();
 
         $this->displayName = $this->l('FL Slider');
-        $this->description = $this->l('Slider Optimizado para Prestashop');
+        $this->description = $this->l('Slider Optimizado para Prestashop. Crea sliders personalizados para tu tienda con imágenes y elementos interactivos.');
 
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
 
@@ -97,7 +97,7 @@ class FlSlider extends Module
 
     public function uninstall()
     {
-        require_once __DIR__ . '/sql/uninstall.php';
+        //require_once __DIR__ . '/sql/uninstall.php';
         Configuration::deleteByName('OPTIMIZEDSLIDER_LIVE_MODE');
         $widgetPageBuilder = new FLSliderWidgetPsPageBuilder();
         $widgetPageBuilder->remove('pspagebuilder');
@@ -263,12 +263,24 @@ class FlSlider extends Module
     }
 
     public function showFrontSlider($idSlider)
-    {   
-        $slider = Slider::getFrontSliderById($idSlider);
-        $this->context->smarty->assign([
-            'slider' => $slider,
-            'fls_image_uri' => FLSHelper::getUriImages(),
-        ]);
-        return $this->display(__FILE__, 'views/templates/front/slider.tpl');
+    {
+        $cacheKey = 'flslider_front_slider_'.$idSlider;
+        
+        if (!Cache::isStored($cacheKey)) {
+            $slider = Slider::getFrontSliderById($idSlider);
+            if (empty($slider)) {
+                return '';
+            }
+            $this->context->smarty->assign([
+                'slider' => $slider,
+                'fls_image_uri' => FLSHelper::getUriImages(),
+            ]);
+            $html = $this->display(__FILE__, 'views/templates/front/slider.tpl');
+            Cache::store($cacheKey, $html);
+        } else {
+            $html = Cache::retrieve($cacheKey);
+        }
+
+        return $html;
     }
 }

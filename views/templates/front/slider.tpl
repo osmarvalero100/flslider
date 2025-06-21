@@ -1,16 +1,8 @@
 {if !empty($slider)}
-    <style>
-    .full-width {
-        width: 100vw !important;
-        position: relative;
-        margin-left: -50vw !important;
-        left: 50%;
-    }
-    </style>
     {assign var="device" value=FLSHelper::getDeviceName()}
 
     <div id="flslider_{$slider.id_slider}" 
-        class="fl-slider full-width"
+        class="fl-slider"
         style="{foreach from=$slider.settings[$device]['styles'] item=style key=key }{$key}:{$style};{/foreach}"
         >
         {* <div class="gallery">*}

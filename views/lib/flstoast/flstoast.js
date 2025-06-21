@@ -1,4 +1,4 @@
-const FlsToast = ({ type, title, message, timer = 5000,  vibrate = [], playSound = null }) => {
+const FlCuteToast = ({ type, title, message, timer = 5000,  vibrate = [], playSound = null }) => {
     return new Promise(resolve => {
         const body = document.querySelector('body');
         const scripts = document.getElementsByTagName('script');

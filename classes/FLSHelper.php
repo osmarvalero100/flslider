@@ -27,6 +27,57 @@ class FLSHelper {
         return ['png', 'jpg', 'jpeg', 'gif', 'webp'];
     }
 
+    public static function getIntrinsicSize($source) {
+        $info = getimagesize($source);
+        if ($info === false) {
+            return false; // Not a valid image
+        }
+        return [
+            'width' => $info[0],
+            'height' => $info[1],
+            'mime' => $info['mime']
+        ];
+    }
+
+    public static function resizeImage($source, $width, $height, $aspectRatio = true) {
+        $info = getimagesize($source);
+        $isAlpha = false;
+        
+        if ($info['mime'] == 'image/jpeg')
+            $image = imagecreatefromjpeg($source);
+        elseif ($isAlpha = $info['mime'] == 'image/gif') {
+            $image = imagecreatefromgif($source);
+        } elseif ($isAlpha = $info['mime'] == 'image/png') {
+            $image = imagecreatefrompng($source);
+        } elseif ($info['mime'] == 'image/webp'){
+            $image = imagecreatefromwebp($source);
+        } else {
+            return $source;
+        }
+        
+        if ($isAlpha) {
+            imagepalettetotruecolor($image);
+            imagealphablending($image, true);
+            imagesavealpha($image, true);
+        }
+
+        if ($aspectRatio) {
+            $info = getimagesize($source);
+            $originalWidth = $info[0];
+            $originalHeight = $info[1];
+            
+            if ($originalWidth > $originalHeight) {
+                $height = ($width / $originalWidth) * $originalHeight;
+            } else {
+                $width = ($height / $originalHeight) * $originalWidth;
+            }
+        }
+
+        $resizedImage = imagescale($image, $width, $height);
+
+        return $resizedImage;
+    }
+
     public static function uploadImage($image, $idSlider, $convertToWebp = true) {
         $data = [];
         $extImg = str_replace('image/', '', $image['type']);
@@ -39,15 +90,15 @@ class FLSHelper {
                 return $data;
             }
         }
-        
 
         $pathImage = $folderSlider.'/'.$name.'.'.$extImg;
+
         if(move_uploaded_file($_FILES['img_object']['tmp_name'], $pathImage)) {
             $data['src'] = $name.'.'.$extImg;
             if ($convertToWebp) {
                 FLSHelper::imageCreateWebp($pathImage);
             }
-            $data['srcset'] = $name.'.webp';
+            //$data['srcset'] = $name.'.webp';
         } else {
             $data['errors'][] = 'Por favor asignar permisos de lectura y escritura en la ruta: '.$pathImage;
         }

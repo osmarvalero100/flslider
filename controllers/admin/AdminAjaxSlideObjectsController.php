@@ -70,6 +70,12 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
             }
 
             $convertToWebp = ($_FILES['img_object']['type'] == '.webp') ? false : true;
+            $slider = new Slider((int) $idSlider);
+            if (empty($slider->id)) {
+                http_response_code(400);
+                $this->ajaxDie(json_encode(['errors' => 'Slider '.$idSlider.' Not Found']));
+            }
+
 
             $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider, $convertToWebp);
             //var_dump($uploadImage['errors']);

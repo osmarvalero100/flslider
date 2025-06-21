@@ -121,7 +121,7 @@ class Slide extends ObjectModel
         $slides = [];
         $sql = 'SELECT id_slide, id_device, `name`, settings, active, order_slide
         FROM `'._DB_PREFIX_.'flslider_slides`
-        WHERE id_device = '.$idDevice.' AND active = 1';
+        WHERE id_device = '.$idDevice.' AND active = 1 ORDER BY id_slide ASC';
         $results = Db::getInstance()->ExecuteS($sql);
 
         if (!empty($results)) {

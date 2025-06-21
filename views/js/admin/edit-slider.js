@@ -150,7 +150,7 @@ function editSlider() {
             if (res.status == 204) {
                 const indexObject = Alpine.store("sl").current_slide.slideObjects.findIndex(object => {
                     return object.id == idSlideObject;
-                  });
+                });
                 Alpine.store("sl").current_slide.slideObjects.splice(indexObject, 1);
             } else {
                 FlCuteToast({type: 'error', title: 'Error', message: 'No fue posible eliminar el objeto.', timer: 10000});
@@ -159,11 +159,17 @@ function editSlider() {
         },
         uploadImage: async function(event) {
             const img = event.target.files[0];
+
+            if (!img) {
+                FlCuteToast({type: 'error', title: 'Error', message: 'No se ha seleccionado ninguna imagen.', timer: 10000});
+                return;
+            }
             const formData = new FormData();
             formData.append('id_slider', Alpine.store("sl").slider.id);
             formData.append('img_object', img);
             showLoader();
             const resUp = await SlideObjects.uploadImage(formData);
+            
             const dataImg = await resUp.json();
             hideLoader();
 
@@ -182,6 +188,8 @@ function editSlider() {
                 styles: {
                     'top': 0,
                     'left': 0,
+                    'margin': 0,
+                    'padding': 0,
                     'position': 'absolute',
                 },
                 props: {}
@@ -201,6 +209,9 @@ function editSlider() {
             const newSlideObject = await res.json();
             hideLoader();
             newSlideObject.attributes = JSON.parse(newSlideObject.attributes)
+            if (Alpine.store("sl").current_slide.slideObjects == null) {
+                Alpine.store("sl").current_slide.slideObjects = [];
+            }
             Alpine.store("sl").current_slide.slideObjects.push(newSlideObject);
             //SlideObjects.pushInCanvas([newSlideObject]);
             setTimeout(() => {

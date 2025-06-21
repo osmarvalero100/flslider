@@ -54,8 +54,8 @@ function flSlider(idSlider) {
         slide[i].classList.add("active");
     };
 
-    slider_callback();
-    let sliderInterval = window.setInterval(slider_callback, 3000);
+    //slider_callback();
+    let sliderInterval = window.setInterval(slider_callback, 5000);
 
     function slider_callback() {
         nextBtn.click();
