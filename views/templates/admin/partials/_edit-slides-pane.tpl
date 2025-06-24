@@ -32,6 +32,35 @@
 .slide {
     margin-top: 5px;
 }
+.slide .capion {
+    background-color: rgb(255,255,255, 0.1);
+    margin-top: 15px;
+    width: 100%;
+    padding: 0 20px;
+}
+.slide .caption h3 {
+    border-bottom: none !important;
+}
+.slide .move {
+    font-weight: 800;
+    font-size: 15pt;
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    height: 40px;
+    width: 25px;
+    text-align: center;
+    padding-top: 3px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 10%;
+    z-index: 3;
+}
+.slide .move:hover {
+    background-color: #f4f4f4;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 2px 1px 0px;
+    color: #00aff0;
+    cursor: ew-resize;
+}
 </style>
 <div class="panel fls-slides">
     <div class="panel-body">
@@ -44,12 +73,19 @@
                         :class="slide.id == $store.sl.current_slide.id ? 'active-slide':''"
                         :style="()=>{
                             if (slide.active == 0 || (slide.date_end != null && (new Date() > new Date(slide.date_end)))) {
-                                return {opacity: .5}
+                                return {opacity: .3}
                             }
                             return {}
                         }"
-                        @click="setCurrentSlide(slide.id)">
-                        <div class="thumbnail no-image" >
+                        @click="setCurrentSlide(slide.id)" @mouseover="getCoverSlide(slide.id)">
+                        <div class="thumbnail" :style="()=>{
+                                return {
+                                    backgroundImage: getCoverSlide(slide.id),
+                                    backgroundSize: 'contain',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                } 
+                            }">
                             <div class="caption">
                                 <h3 x-text="slide.name"></h3>
                                     <template x-if="()=>{
@@ -73,6 +109,7 @@
                                         right: 12px;
                                         top: 7px;" title="Exportar">
                                     </i>
+                                <span title="Mover a otra posición" class="move">::</span>
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">

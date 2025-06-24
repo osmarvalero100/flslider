@@ -3,6 +3,7 @@ Alpine.store("sl", {
     slider: new Slider(),
     current_device: new Device(),
     current_slide: new Slide(),
+    images_slider_url: '/modules/flslider/images'
 });
 
 function editSlider() {
@@ -10,7 +11,8 @@ function editSlider() {
         start: async function() {
             const res = await Slider.getEditById(idSlider);
             const editSlider = await res.json();
-            Alpine.store("sl").slider = await this.jsonParseSlider(editSlider);
+            const slider = await this.jsonParseSlider(editSlider);
+            Alpine.store("sl").slider = slider;
            // Alpine.store("sl").slider.active = Boolean(Alpine.store("sl").slider.active);
             Alpine.store("sl").slider.config = false;
             await this.setDevice(1);
@@ -82,9 +84,11 @@ function editSlider() {
         createSlide: async function() {
             const defaults = [];
             const qtySlides = Alpine.store("sl").current_device.slides.length;
+            const randomName = Math.random().toString(36).slice(-4);
             const slide = {
-                name: 'Slide ' + (qtySlides + 1),
+                name: randomName,
                 id_device: Alpine.store("sl").current_device.id,
+                active: 0,
                 order_slide: qtySlides + 1,
                 settings: JSON.stringify(defaults),
             }
@@ -94,7 +98,23 @@ function editSlider() {
             const newSlide = await res.json();
             newSlide.settings = JSON.parse(newSlide.settings);
             Alpine.store("sl").current_device.slides.push(newSlide);
+            this.setCurrentSlide(newSlide.id);
             hideLoader();
+        },
+        getCoverSlide: function(idSlide) {
+            const slide = Alpine.store("sl").current_device.slides.find(sl => sl.id == idSlide);
+            if (slide && slide.slideObjects) {
+                if (slide.slideObjects.length == 0)
+                    return 'url("/modules/flslider/views/img/slide.png")';
+                const coverObject = slide.slideObjects.find(so => so.type == 'img');
+                if (coverObject.length == 0)
+                    return 'url("/modules/flslider/views/img/slide.png")';
+                if (coverObject.hasOwnProperty('attributes') && coverObject.attributes.hasOwnProperty('props') && coverObject.attributes.props.hasOwnProperty('src')) {
+                    const cover = Alpine.store("sl").images_slider_url +'/'+ Alpine.store("sl").slider.id + '/' + coverObject.attributes.props.src;
+                    return 'url(' + cover + ')';
+                }
+            }
+            return 'url("/modules/flslider/views/img/slide.png")';
         },
         showSlideSettings: function(){
             setTimeout(() => {
