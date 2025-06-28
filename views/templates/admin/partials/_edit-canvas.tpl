@@ -84,11 +84,6 @@ i:hover {
         <hr>
         <div class="row">
             <div class="col-md-3 objects-list">
-                <div class="object row">
-                    <div class="col-md-6">
-                        <p>Slide background</p>
-                    </div>
-                </div>
                 <template x-for="object in $store.sl.current_slide.slideObjects">
                     <div class="object row">
                         <div class="col-md-6">
@@ -102,8 +97,8 @@ i:hover {
             </div>
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-body">
-                    Basic panel example
+                    <div class="panel-boady">
+                        Styles objects
                     </div>
                 </div>
             </div>

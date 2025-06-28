@@ -76,9 +76,7 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
                 $this->ajaxDie(json_encode(['errors' => 'Slider '.$idSlider.' Not Found']));
             }
 
-
-            $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider, $convertToWebp);
-            //var_dump($uploadImage['errors']);
+            $uploadImage = FLSHelper::uploadImage($_FILES['img_object'], $idSlider, $convertToWebp, 238, 1140);
             if (!empty($uploadImage['errors'])) {
                 http_response_code(400);
                 $this->ajaxDie(json_encode(['errors' => $uploadImage['errors']]));
@@ -98,6 +96,24 @@ class AdminAjaxSlideObjectsController extends ModuleAdminController
         if (empty($slideObject->id)) {
             http_response_code(404);
             $this->ajaxDie(json_encode(['errors' => 'SlideObject '.$data->id.' Not Found']));
+        }
+
+        if ($slideObject->type == 'img' && !empty($slideObject->attributes)) {
+            $attr = json_decode($slideObject->attributes, true);
+            $props = $attr['props'] ? $attr['props'] : [];
+
+            if (isset($props['src']) && !empty($props['src'])) {
+                $sqlIDSlider = 'SELECT pfd.id_slider
+                    FROM `'._DB_PREFIX_.'flslider_slides_objects` pfso
+                    LEFT JOIN `'._DB_PREFIX_.'flslider_slides` pfs ON pfs.id_slide = pfso.id_slide
+                    LEFT JOIN `'._DB_PREFIX_.'flslider_devices` pfd ON pfd.id_device = pfs.id_device
+                    WHERE pfso.id_slide_object = '.(int)$slideObject->id;
+                $idSlider = Db::getInstance()->getValue($sqlIDSlider);
+
+                if (!empty($idSlider)) {
+                    FLSHelper::deleteImage($idSlider, $props['src']);
+                }
+            }
         }
         
         $slideObject->delete();

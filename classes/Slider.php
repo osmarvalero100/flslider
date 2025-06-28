@@ -147,6 +147,7 @@ class Slider extends ObjectModel
         $result['styles'] = Slider::getStyles($result['settings']);
         $result['slides'] = [];
         $sliderDeviceId = Device::getFrontSliderDeviceId($idSlider);
+
         if (!empty($sliderDeviceId)) {
             $slides = Slide::getFrontSlides($sliderDeviceId);
             if (!empty($slides)) {

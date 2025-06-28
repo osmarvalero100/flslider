@@ -48,9 +48,9 @@ class AdminAjaxSlideController extends ModuleAdminController
         $slide->order_slide = $data->order_slide;
         $slide->setSettings($data->settings);
         if (!empty($data->date_start))
-            $slide->date_start = $data->date_start;
+            $slide->date_start = date('Y-m-d H:i:s', strtotime($data->date_start));
         if (!empty($data->date_end))
-            $slide->date_end = $data->date_end;
+            $slide->date_end = date('Y-m-d H:i:s', strtotime($data->date_end));
         if (isset($data->active))
             $slide->active = $data->active;
         
@@ -65,7 +65,7 @@ class AdminAjaxSlideController extends ModuleAdminController
     }
 
     public function ajaxProcessGetById() {
-        $id = Tools::getValue('id') ?? null;
+        $id = !empty(Tools::getValue('id')) ? Tools::getValue('id') : null;
         if (empty($id)) {
             http_response_code(400);
             $this->ajaxDie(json_encode(['errors' => 'Se requiere un id de Slider']));

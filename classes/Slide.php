@@ -118,25 +118,58 @@ class Slide extends ObjectModel
 
     public static function getFrontSlides($idDevice)
     {
+        $dateTime = date('Y-m-d H:i:s');
         $slides = [];
-        $sql = 'SELECT id_slide, id_device, `name`, settings, active, order_slide
-        FROM `'._DB_PREFIX_.'flslider_slides`
-        WHERE id_device = '.$idDevice.' AND active = 1 ORDER BY order_slide ASC';
+        $sql = 'SELECT id_slide, id_device, `name`, settings, active, order_slide, date_start, date_end
+            FROM `'._DB_PREFIX_.'flslider_slides`
+            WHERE id_device = '.$idDevice.' 
+                AND active = 1
+                AND  (date_start IS NULL OR date_end = "0000-00-00 00:00:00" OR date_start <= "'.$dateTime.'")
+                AND (date_end IS NULL OR date_end = "0000-00-00 00:00:00" OR date_end >= "'.$dateTime.'")
+            ORDER BY order_slide ASC';
         $results = Db::getInstance()->ExecuteS($sql);
 
         if (!empty($results)) {
             $slides = $results;
 
             foreach ($results as $key =>$slide) {
+                // AND  (date_start IS NULL OR date_end = "0000-00-00 00:00:00" OR date_start <= "'.$dateTime.'")
+                // AND (date_end IS NULL OR date_end = "0000-00-00 00:00:00" OR date_end >= "'.$dateTime.'")
+                // if ( (!empty($slide['date_start']) && $slide['date_start'] > $dateTime) && $slide['active'] != "0000-00-00 00:00:00") {
+                //     unset($slides[$key]);
+                //     continue;
+                // }
+                // if ((!empty($slide['date_end']) && $slide['date_end'] < $dateTime) && $slide['active'] != "0000-00-00 00:00:00") {
+                //     unset($slides[$key]);
+                //     continue;
+                // }
                 $slides[$key]['objects'] = [];
                 $slideObjects = SlideObjects::getFrontObjectsBySlideId((int) $slide['id_slide']);
-                if (!empty($slideObjects)) {
+                if (empty($slideObjects)) {
+                    unset($slides[$key]);
+                } else {
                     $slides[$key]['objects'] = $slideObjects;
                 }
             }
         }
 
         return $slides;
+    }
+
+    public static function getSliderBySlideId($idSlide)
+    {
+        $sql = 'SELECT id_device FROM `'._DB_PREFIX_.'flslider_slides` WHERE id_slide = '.(int)$idSlide;
+        $idDevice = Db::getInstance()->getValue($sql);
+        if (empty($idDevice)) {
+            return null;
+        }
+
+        $device = Device::getDeviceEdit((int) $idDevice);
+        if (empty($device)) {
+            return null;
+        }
+
+        return $device[0];
     }
 
 }

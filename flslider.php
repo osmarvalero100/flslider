@@ -264,22 +264,32 @@ class FlSlider extends Module
 
     public function showFrontSlider($idSlider)
     {
-        $cacheKey = 'flslider_front_slider_'.$idSlider;
-        
-        if (!Cache::isStored($cacheKey)) {
-            $slider = Slider::getFrontSliderById($idSlider);
-            if (empty($slider)) {
-                return '';
-            }
-            $this->context->smarty->assign([
-                'slider' => $slider,
-                'fls_image_uri' => FLSHelper::getUriImages(),
-            ]);
-            $html = $this->display(__FILE__, 'views/templates/front/slider.tpl');
-            Cache::store($cacheKey, $html);
-        } else {
-            $html = Cache::retrieve($cacheKey);
+        // $cacheKey = 'flslider_front_slider_'.$idSlider;
+
+        // if (!Cache::isStored($cacheKey)) {
+        //     $slider = Slider::getFrontSliderById($idSlider);
+        //     if (empty($slider)) {
+        //         return '';
+        //     }
+        //     $this->context->smarty->assign([
+        //         'slider' => $slider,
+        //         'fls_image_uri' => FLSHelper::getUriImages(),
+        //     ]);
+        //     $html = $this->display(__FILE__, 'views/templates/front/slider.tpl');
+        //     Cache::store($cacheKey, $html);
+        // } else {
+        //     $html = Cache::retrieve($cacheKey);
+        // }
+
+        $slider = Slider::getFrontSliderById($idSlider);
+        if (empty($slider)) {
+            return '';
         }
+        $this->context->smarty->assign([
+            'slider' => $slider,
+            'fls_image_uri' => FLSHelper::getUriImages(),
+        ]);
+        $html = $this->display(__FILE__, 'views/templates/front/slider.tpl');
 
         return $html;
     }

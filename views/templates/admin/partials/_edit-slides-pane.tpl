@@ -72,7 +72,7 @@
                         :data-slide-id="slide.id"
                         :class="slide.id == $store.sl.current_slide.id ? 'active-slide':''"
                         :style="()=>{
-                            if (slide.active == 0 || (slide.date_end != null && (new Date() > new Date(slide.date_end)))) {
+                            if (slide.active == 0) {
                                 return {opacity: .3}
                             }
                             return {}
@@ -88,7 +88,7 @@
                             }">
                             <div class="caption">
                                 <h3 x-text="slide.name"></h3>
-                                    <template x-if="()=>{
+                                    <!-- <template x-if="()=>{
                                             return (slide.date_start && slide.date_start.substring(0,4) != '0000') || (slide.date_end && slide.date_end.substring(0,4) != '0000');
                                         }">
                                         <i class="ri-lg"
@@ -103,13 +103,25 @@
                                                 return  start + '  ' + end;
                                                 }">
                                         </i>
-                                    </template>
+                                    </template> -->
                                     <i class="ri-lg ri-arrow-down-line" style="
                                         position: absolute;
                                         right: 12px;
                                         top: 7px;" title="Exportar">
                                     </i>
                                 <span title="Mover a otra posición" class="move">::</span>
+                                <template x-if="()=>{
+                                            return (slide.date_start && slide.date_start.substring(0,4) != '0000') || (slide.date_end && slide.date_end.substring(0,4) != '0000');
+                                        }">
+                                        <img src="/modules/flslider/views/img/clock.gif"
+                                            style="width: 48px; position: absolute; left: 9px; top: 38%;border: 1px solid lightgray;border-radius: 5px;"
+                                            :title="()=>{
+                                                const start = slide.date_start != null && slide.date_start.substring(0,4) != '0000' ? 'Desde: '+slide.date_start : '';
+                                                const end = slide.date_end != null && slide.date_end.substring(0,4) != '0000' ? 'Hasta: '+slide.date_end : '';
+                                                return  start + '  ' + end;
+                                                }"
+                                            >
+                                    </template>
                                 <div class="text-center actions">
                                     <div class="btn-group dropup">
                                         <button @click="delSlide(slide.id)" type="button" title="Eliminar" class="btn btn-primary">
@@ -184,6 +196,7 @@
 <script>
 $("#slideSelector .row").sortable({
     items: ".slide:not(#addSlide)",
+    opacity: 0.7,
     update: function( event, ui ) {
         const slides = document.querySelectorAll('#slideSelector .slide');
         if (slides) {
